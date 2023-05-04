@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_04_004748) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_04_194222) do
   create_table "lots", force: :cascade do |t|
     t.string "code"
     t.date "start_date"
@@ -31,6 +31,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_004748) do
     t.integer "sex"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "admin"
+    t.integer "role", default: 0
+    t.string "social_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
