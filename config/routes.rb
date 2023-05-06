@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   root "lots#index"
   resources :lots
   resources :items
-  resources :categorys
+  resources :users
+  resources :categories
 end

@@ -8,6 +8,7 @@
 
     <%= stylesheet_link_tag "application" %>
     <%= javascript_importmap_tags %>
+    <script src="https://kit.fontawesome.com/5d3b493f11.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
@@ -21,31 +22,32 @@
       <div class="collapse navbar-collapse" id="mynavbar">
         <ul class="navbar-nav d-flex w-100">
           <li class="nav-item">
-            <%= link_to "Home", root_path,  class:"nav-link active" %>
+          <%= link_to "Home", root_path,  class:"nav-link active" %>
+          </li>
+
+
+          <li class="nav-item">
+            <%= link_to "Lotes", lots_path,  class:"nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Lotes", root_path,  class:"nav-link" %>
+            <%= link_to "Items", items_path,  class:"nav-link" %>
           </li>
+          <li class="nav-item me-auto">
+            <%= link_to "Categorias", categories_path,  class:"nav-link" %>
+          </li>
+          <% if user_signed_in? %>
             <li class="nav-item">
               <a class="nav-link" href="#">Meus lances</a>
             </li>
-            <li class="nav-item me-auto">
+            <li class="nav-item ">
               <a class="nav-link" href="#">Lotes favoritos</a>
             </li>
-          <% if user_signed_in? %>
-
+            
             <% if current_user.admin? %>
               <li class="nav-item">
-                <%= link_to "Criar Lote", new_lot_path,  class:"nav-link" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Criar Item", new_item_path,  class:"nav-link" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Criar Categoria", new_category_path,  class:"nav-link" %>
-              </li>
+                <%= link_to "Usuários", users_path,  class:"nav-link" %>
+              </li>  
             <% end %>
-
 
             <li class="nav-item ">
               <%= link_to current_user.name, edit_user_registration_path, class:"nav-link" %>

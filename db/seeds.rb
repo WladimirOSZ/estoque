@@ -8,7 +8,9 @@
 
 # userSeeder
 
-User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',sex:1, role: :admin)
+User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
+            sex:1, role: :admin)
 
-User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',sex:1, role: :user)
+User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password'
+            ,sex:1, role: :user)
 
