@@ -7,10 +7,10 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 # userSeeder
-
+# admin
 User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
             sex:1, role: :admin)
-
+# user
 User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password'
             ,sex:1, role: :user)
 

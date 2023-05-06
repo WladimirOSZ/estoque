@@ -65,7 +65,7 @@ describe 'Usuário cadastra categorias' do
 
     it 'E cadastra uma categoria com nome repetido' do
       User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
-        sex:1, role: :admin)
+                  sex:1, role: :admin)
       login_as(User.last)
       
       visit root_path
