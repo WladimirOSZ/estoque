@@ -11,6 +11,7 @@ describe 'Usuário visualiza itens' do
     Category.create!(name: 'Televisões')
     Category.create!(name: 'Eletrônicos')
 
+    allow(SecureRandom).to receive(:alphanumeric).and_return('ABCDE12345')
     item = Item.create!(name: 'Iphone 15.5 XS', description: 'Celular novo', photo: 'celular.jpg',
                         weight: 1, width: 10, height: 10, depth: 10, user_id: User.last.id)
 

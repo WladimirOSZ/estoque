@@ -6,6 +6,8 @@ pt-BR:
       user:
         name: "Nome"
         email: "E-mail"
+        social_name: "Nome social"
+        password: "Senha"
         role:
           user: "Usuário"
           admin: "Administrador"

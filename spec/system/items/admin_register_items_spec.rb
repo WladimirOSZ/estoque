@@ -17,9 +17,39 @@ describe 'Administrador cadastra items' do
     expect(page).to have_content('Largura')
     expect(page).to have_content('Altura')
     expect(page).to have_content('Profundidade')
+    # adiciona categorias
 
-    expect(page).to have_content('Categorias')
-    expect(page).to have_button('Enviar')
+    expect(page).to have_button('Criar Item')
+  end
+
+  it 'E preenche todos os campos' do
+    User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
+      sex:1, role: :admin)
+    
+    Category.create!(name: 'Celulares')
+    Category.create!(name: 'Eletrônicos')
+    Category.create!(name: 'Móveis')
+    Category.create!(name: 'Eletrodomésticos')
+
+    login_as(User.last)
+
+    visit root_path
+    click_on 'Itens'
+    click_on 'Cadastrar item'
+
+    fill_in 'Nome', with: 'Celular'
+    fill_in 'Descrição', with: 'Celular novo'
+    fill_in 'Peso', with: '1'
+    fill_in 'Largura', with: '1'
+    fill_in 'Altura', with: '1'
+    fill_in 'Profundidade', with: '1'
+    # attach_file 'Foto', Rails.root.join('spec', 'support', 'celular.jpg')
+    check 'Celulares'
+    click_on 'Criar Item'
+
+    expect(page).to have_content('Item cadastrado com sucesso')
+    expect(page).to have_content('Celular')
+    
 
   end
 end
