@@ -9,10 +9,10 @@
 # userSeeder
 # admin
 User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
-            sex:1, role: :admin)
+            sex:1, role: :admin, cpf: '491.150.798.55')
 # user
 User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-            sex:1, role: :user)
+            sex:1, role: :user, cpf: '491.150.798.56')
 
 # categorySeeder
 

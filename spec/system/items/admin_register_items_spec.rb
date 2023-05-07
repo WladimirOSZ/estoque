@@ -39,17 +39,18 @@ describe 'Administrador cadastra items' do
 
     fill_in 'Nome', with: 'Celular'
     fill_in 'Descrição', with: 'Celular novo'
-    fill_in 'Peso', with: '1'
-    fill_in 'Largura', with: '1'
-    fill_in 'Altura', with: '1'
-    fill_in 'Profundidade', with: '1'
+    fill_in 'Peso', with: '10'
+    fill_in 'Largura', with: '20'
+    fill_in 'Altura', with: '20'
+    fill_in 'Profundidade', with: '5'
+
     # attach_file 'Foto', Rails.root.join('spec', 'support', 'celular.jpg')
     check 'Celulares'
+    check 'Eletrônicos'
     click_on 'Criar Item'
 
     expect(page).to have_content('Item cadastrado com sucesso')
     expect(page).to have_content('Celular')
-    
 
   end
 end
