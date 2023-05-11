@@ -4,7 +4,7 @@ describe 'Usuário visualiza itens' do
   it 'E vê todos os itens cadastrados' do
     # Arrange
     User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-                sex:1, role: :user)
+                sex:1, role: :user, cpf: '111.222.333.44')
     login_as(User.last)
 
     Category.create!(name: 'Celulares')

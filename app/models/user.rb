@@ -39,5 +39,4 @@ class User < ApplicationRecord
     self.cpf = self.cpf.gsub(/[^0-9]/, '')
   end
 
-  
 end

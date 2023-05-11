@@ -1,19 +1,29 @@
 <h1>Leilão de lotes</h1>
 
-<ul>
-<% @users.each do |user| %>
-  <li>
-    <%= user.name %>
-  </li>
-  <li>
-    <%= user.email %>
-  </li>
-  <li>
-    <%= user.role %>
-  </li>
-  <li>
-    <%= user.formatted_cpf %>
-  </li>
-  <hr>
+<% unless @lots.empty? %>
+  <% @lots.each do |lot| %>
+    <div class="card text-dark bg-light mb-3" style="max-width: 18rem;" id="lot-<%= lot.code %>" >
+      <div class="card-header">Lote <%= lot.code %></div>
+      <div class="card-body">
+        <h5 class="card-title"><%= current_time_status(lot) %></h5>
+        <p class="card-text">
+          Valor inicial do lote: <%= lot.mininum_value %><br>
+          Mínima diferença entre lances: <%= lot.mininum_difference %><br>
+          <% if is_open(lot) %>
+            Lance mais alto do lote até o momento: <br>
+          <% end %>
+          Data e hora de início: Há <%= distance_of_time_in_words_to_now(lot.start_date) %><br>
+          Data e hora do fim: Em <%= distance_of_time_in_words_to_now(lot.end_date) %><br>
+        </p>
+      </div>
+        <div class="card-footer">
+          <%= link_to 'Ver lote', root_path, class: 'btn btn-primary' %>
+          <% if is_open(lot) && is_admin? %>
+            <%= link_to 'Adicionar items', root_path, class: 'btn btn-primary' %>
+          <% end %>
+        </div>
+    </div>
+  <% end %>
+<% else %>
+  <p>Não há lotes cadastrados</p>
 <% end %>
-</ul>
