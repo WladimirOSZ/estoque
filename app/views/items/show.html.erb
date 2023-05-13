@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-12 col-lg-4">
+    <h2 class="mb-3">Código: <%= @item.code %></h2>
+    <% if @item.photo.attached? %>
+      <%= image_tag @item.photo, class: 'img-fluid' %>
+    <% end %>
+    <div id="categories">
+      <h4>Categorias</h4>
+      <ul>
+        <% @item.categories.each do |category| %>
+          <li><%= category.name %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-6 col-lg-4">
+    <h2><%= @item.name %></h2>
+    <h4>Descrição</h4>
+    <p><%= @item.description %></p>
+    <h4>Especificações</h4>
+    <ul>
+      <li>Peso: <%= @item.weight %>g</li>
+      <li>Largura: <%= @item.width %>cm</li>
+      <li>Altura: <%= @item.height %>cm</li>
+      <li>Profundidade: <%= @item.depth %>cm</li>
+    </ul>
+  </div>
+  <%# botoes voltar e dar lance %>
+  <div class="col-md-6 col-lg-4">
+    <div class="card text-dark bg-light mb-3" style="max-width: 18rem;" id="item-<%= @item.code %>" >
+      <div class="card-body">
+        <h5 class="card-title">Lance mais alto do lote até o momento:</h5>
+      </div>
+      <%= link_to 'Voltar', items_path, class: 'btn btn-primary' %>
+    </div>
+  </div>

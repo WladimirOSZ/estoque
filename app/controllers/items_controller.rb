@@ -16,13 +16,9 @@ class ItemsController < ApplicationController
     @item = Item.new item_params
     @item.user_id = current_user.id
     if @item.save
-      item_id = @item.id
-      categorie_ids = params[:item][:category_ids].reject(&:blank?)
-      categorie_ids.each do |category_id|
-        ItemCategory.create!(item_id: item_id, category_id: category_id)
-      end
+      item_id = @item.id     
 
-      redirect_to items_path, notice: 'Item cadastrado com sucesso!'
+      redirect_to @item, notice: 'Item cadastrado com sucesso!'
     else
       @categories = Category.all
       flash.now[:alert] = 'Não foi possível cadastrar o item'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_09_210033) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_13_134632) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -52,6 +52,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_09_210033) do
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_item_categories_on_category_id"
     t.index ["item_id"], name: "index_item_categories_on_item_id"
+  end
+
+  create_table "item_lots", force: :cascade do |t|
+    t.integer "item_id", null: false
+    t.integer "lot_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_item_lots_on_item_id"
+    t.index ["lot_id"], name: "index_item_lots_on_lot_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -104,6 +113,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_09_210033) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "item_categories", "categories"
   add_foreign_key "item_categories", "items"
+  add_foreign_key "item_lots", "items"
+  add_foreign_key "item_lots", "lots"
   add_foreign_key "items", "users"
   add_foreign_key "lots", "users", column: "approved_by_id"
   add_foreign_key "lots", "users", column: "created_by_id"

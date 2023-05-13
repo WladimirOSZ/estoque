@@ -7,4 +7,8 @@ class LotsController < ApplicationController
   def lista_users_teste
     @users = User.all 
   end
+
+  def new
+    @lot = Lot.new
+  end
 end

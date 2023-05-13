@@ -1,29 +1,32 @@
 <h1>Leilão de lotes</h1>
-
 <% unless @lots.empty? %>
-  <% @lots.each do |lot| %>
-    <div class="card text-dark bg-light mb-3" style="max-width: 18rem;" id="lot-<%= lot.code %>" >
-      <div class="card-header">Lote <%= lot.code %></div>
-      <div class="card-body">
-        <h5 class="card-title"><%= current_time_status(lot) %></h5>
-        <p class="card-text">
-          Valor inicial do lote: <%= lot.mininum_value %><br>
-          Mínima diferença entre lances: <%= lot.mininum_difference %><br>
-          <% if is_open(lot) %>
-            Lance mais alto do lote até o momento: <br>
-          <% end %>
-          Data e hora de início: Há <%= distance_of_time_in_words_to_now(lot.start_date) %><br>
-          Data e hora do fim: Em <%= distance_of_time_in_words_to_now(lot.end_date) %><br>
-        </p>
-      </div>
+  <div class="row align-items-center">
+    <% @lots.each do |lot| %>
+      <div class="card text-dark bg-light mb-3" style="max-width: 18rem;" id="lot-<%= lot.code %>" >
+        <div class="card-header">Lote <%= lot.code %></div>
+        <div class="card-body">
+          <h5 class="card-title"><%= current_time_status(lot) %></h5>
+          <p class="card-text">
+            Valor inicial do lote: <%= lot.mininum_value %><br>
+            Mínima diferença entre lances: <%= lot.mininum_difference %><br>
+            <% if is_open(lot) %>
+              Lance mais alto do lote até o momento: <br>
+              Iniciou há: <%= distance_of_time_in_words_to_now(lot.start_date) %><br>
+              Finaliza em: <%= distance_of_time_in_words_to_now(lot.end_date) %><br>
+            <% else %>
+              Inicia em: <%= distance_of_time_in_words_to_now(lot.start_date) %><br>
+              Finaliza após: <%= distance_of_time_in_words_to_now(lot.start_date - lot.end_date) %><br>
+            <% end %>
+          </p>
+        </div>
         <div class="card-footer">
-          <%= link_to 'Ver lote', root_path, class: 'btn btn-primary' %>
+          <%= link_to 'Ver lote', new_lot_path, class: 'btn btn-primary' %>
           <% if is_open(lot) && is_admin? %>
             <%= link_to 'Adicionar items', root_path, class: 'btn btn-primary' %>
           <% end %>
         </div>
-    </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p>Não há lotes cadastrados</p>
   <% end %>
-<% else %>
-  <p>Não há lotes cadastrados</p>
-<% end %>
