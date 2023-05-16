@@ -1,6 +1,6 @@
 class LotsController < ApplicationController
   def index
-    if current_user.admin?
+    if current_user.present? && current_user.admin?
       @unnaproved_lots = Lot.unnaproved
     end
     @lots = Lot.avaliable

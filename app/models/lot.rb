@@ -61,5 +61,18 @@ class Lot < ApplicationRecord
     Lot.where.not(id: unnaproved_lots)
   end
 
+  def self.ongoing
+    Lot.where(Date.today.between(:start_date, :end_date)).where("approved_by_id IS NOT NULL")
+    # Lot.where("start_date <= ? AND end_date >= ?", Date.today, Date.today).where("approved_by_id IS NOT NULL")
+  end
+
+  def self.future
+    Lot.where("start_date > ?", Date.today).where("approved_by_id IS NOT NULL")
+  end
+
+  def self.finished
+    Lot.where("end_date < ?", Date.today)
+  end
+
   
 end
