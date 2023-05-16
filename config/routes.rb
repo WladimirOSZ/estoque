@@ -4,8 +4,12 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "lots#lista_users_teste"
-  resources :lots
   resources :items
   resources :users
   resources :categories
+  
+  resources :lots do 
+    resources :items_lots
+  end
+  
 end

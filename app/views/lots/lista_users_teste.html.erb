@@ -1,19 +1,21 @@
 <h3>View só para acompanhar o que está acontecendo</h3>
-
 <ul>
-<% @users.each do |user| %>
-  <li>
-    <%= user.name %>
-  </li>
-  <li>
-    <%= user.email %>
-  </li>
-  <li>
-    <%= user.role %>
-  </li>
-  <li>
-    <%= user.formatted_cpf %>
-  </li>
-  <hr>
-<% end %>
+  <% @users.each do |user| %>
+    <li>
+      <%= user.id %>
+    </li>
+    <li>
+      <%= user.name %>
+    </li>
+    <li>
+      <%= user.email %>
+    </li>
+    <li>
+      <%= user.role %>
+    </li>
+    <li>
+      <%= user.formatted_cpf %>
+    </li>
+    <hr>
+  <% end %>
 </ul>

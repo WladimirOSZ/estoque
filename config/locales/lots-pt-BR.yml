@@ -1,7 +1,15 @@
 pt-BR:
   activerecord:
     models:
-      user: "Usuário"
+      lot: "Lote"
     attributes:
-      user:
-        name: "Nome"
+      lot:
+        code: "Código"
+        start_date: "Data de início"
+        end_date: "Data final"
+        minimum_value: "Valor mínimo"
+        minimum_difference: "Diferença mínima"
+        approved_by: "Aprovado por"
+        approved_by_id: "Aprovado por"
+        created_by: "Criado por"
+        created_by_id: "Criado por"

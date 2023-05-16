@@ -3,7 +3,9 @@ require 'rails_helper'
 describe 'Usuário visualiza itens' do
   it 'E não há itens cadastrados' do
     visit root_path
-    click_on 'Itens'
+    within('nav') do
+      click_on 'Itens'
+    end
 
     expect(page).to have_content('Nenhum item cadastrado')
   end

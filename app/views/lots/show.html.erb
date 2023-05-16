@@ -1,0 +1,61 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'item' %>
+<% end %>
+
+<div class="row">
+  <div class="col-md-12 col-lg-4">
+    <h3>Visualizando o lote <%= @lot.code %></h3>
+    <h2 class="mb-3">Código: <%= @lot.code %></h2>
+    <div id="categories">
+      <h4>Detalhes</h4>
+      <ul>
+        <li>Data de abertura: <%= l @lot.start_date, format: :short %></li>
+        <li>Data de fechamento: <%= l @lot.end_date, format: :short  %></li>
+        <li>Valor inicial do lote: <%= @lot.minimum_value %>R$</li>
+        <li>Diferença mínima entre lances: <%= @lot.minimum_difference %>R$</li>
+      </ul>
+    </div>
+    <div class="card text-dark bg-light mb-3"  id="lot-<%= @lot.code %>" >
+      <div class="card-body">
+        <h5 class="card-title">Status do lote: <%= current_time_status(@lot)%></h5>
+        <% if is_admin? %>
+          <h5>Criado por: <%= @lot.created_by.name %> </h5>
+          <h5 class="text-warning"> <%= is_approved_status(@lot) %> </h5>
+        <% end %>
+      </div>
+      <% if is_admin? %>
+        <%= link_to 'Editar lote', edit_lot_path(@lot), class: 'btn btn-warning mb-1 text-white fw-bold' %>
+      <% end %>
+      <%= link_to 'Voltar', lots_path, class: 'btn btn-primary fw-bold' %>
+    </div>
+  </div>
+  <div class="col-sm-12 col-lg-8">
+    <h2>Items do lote:</h2>
+    <% unless @lot.items.empty? %>
+      <div class="row align-items-center">
+        <% @lot.items.each do |item| %>
+          <div class="col-sm-12 col-md-4">
+            <div class="card mb-3" id="item-<%= item.code %>" >
+              <div class="card-img-container">
+                <% if item.photo.attached? %>
+                  <%= image_tag item.photo, class: 'card-img-top' %>
+                <% end %>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= item.name %>
+                </h5>
+                <p class="card-text">
+                  <%= item.description[0,100] %>...
+                </p>
+              </div>
+              <div class="card-footer">
+                <%= link_to 'Visualizar item', item_path(item), class: 'btn btn-primary' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
