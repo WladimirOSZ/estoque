@@ -1,16 +1,22 @@
 class Lot < ApplicationRecord
+  has_many :item_lot
+  has_many :items, through: :item_lot
+  belongs_to :created_by, class_name: 'User', foreign_key: 'created_by_id'
+  belongs_to :approved_by, class_name: 'User', foreign_key: 'approved_by_id', optional: true
+  
+  accepts_nested_attributes_for :items
 
-  validates :code, :start_date, :end_date, :mininum_value, :mininum_difference, presence: true
+  validates :code, :start_date, :end_date, :minimum_value, :minimum_difference, presence: true
   validates :code, uniqueness: true
-  validates :mininum_value, :mininum_difference, numericality: { greater_than: 99 }
-  validates :mininum_difference, numericality: { greater_than: 99 }
-
+  validates :minimum_value, numericality: { greater_than: 99 }
+  validates :minimum_difference, numericality: { greater_than: 9 }
 
   validate :end_date_cannot_be_in_the_past
   validate :code_needs_three_letters_and_six_characters
   validate :created_by_needs_to_be_admin
   validate :approved_by_needs_to_be_admin
   validate :created_by_cant_be_the_same_as_approved_by
+
 
   def end_date_cannot_be_in_the_past
     if end_date.present? && end_date < Date.today
@@ -41,8 +47,19 @@ class Lot < ApplicationRecord
 
   def created_by_cant_be_the_same_as_approved_by
     if created_by_id.present? && approved_by_id.present? && created_by_id == approved_by_id
-      errors.add(:created_by_id, "não pode ser o mesmo que o aprovador")
+      errors.add(:approved_by_id, "não pode ser o mesmo que o criador do lote")
     end
   end
 
+
+  def self.unnaproved
+    Lot.where("approved_by_id IS NULL")
+  end
+
+  def self.avaliable
+    unnaproved_lots = Lot.unnaproved.pluck(:id)
+    Lot.where.not(id: unnaproved_lots)
+  end
+
+  
 end

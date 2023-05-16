@@ -27,9 +27,29 @@
   </div>
   <%# botoes voltar e dar lance %>
   <div class="col-md-6 col-lg-4">
-    <div class="card text-dark bg-light mb-3" style="max-width: 18rem;" id="item-<%= @item.code %>" >
+    <div class="card text-dark bg-light mb-3" id="info-item" >
       <div class="card-body">
-        <h5 class="card-title">Lance mais alto do lote até o momento:</h5>
+        <% if @item.lot.present? %>
+          <% if is_approved(@item.lot) %>
+            <%# se tem lances %>
+            <%# se não tem %>
+            <h5 class="card-title">Item do lote <%= @item.lot.code %></h5>
+            <p class="card-text">
+              Este item ainda não possui lances, seja o primeiro!
+            </p>
+            <ul>
+              <li>Lance mínimo: <%= number_to_currency(@item.lot.minimum_value) %></li>
+              <li>Diferença mínima entre lances: <%= number_to_currency(@item.lot.minimum_difference) %></li>
+              <li>Estado do lote: <%= current_time_status(@item.lot)  %></li>
+              <li>O lote fecha em: <%= distance_of_time_in_words_to_now(@item.lot.end_date) %> </li>
+            </ul>
+            <%= link_to 'Ver lote', @item.lot %>
+          <% else %>
+            <h5 class="card-title">Este item ainda não está em nenhum lote</h5>
+          <% end %>
+        <% else %>
+          <h5 class="card-title">Este item ainda não está em nenhum lote</h5>
+        <% end %>
       </div>
       <%= link_to 'Voltar', items_path, class: 'btn btn-primary' %>
     </div>

@@ -1,0 +1,85 @@
+<% content_for :head do %>
+  <%= stylesheet_link_tag 'item' %>
+<% end %>
+<%= form_with model: @lot do |f| %>
+  <div id="form-top">
+    <% if @lot.approved_by_id.nil? %>
+      <%= f.check_box :approved_by_id, class: 'btn-check' %>
+      <%= f.label :approved_by_id, "Aprovar", class: 'btn btn-outline-success' %>
+    <% else %>
+      <a href="#" class="btn btn-success"> Aprovado por: <%= @lot.approved_by.name  %></a>
+    <% end %>
+    <%= f.submit 'Salvar Edição', class: 'btn btn-success' %>
+    <%= link_to 'Voltar', @lot, class: 'btn btn-secondary' %>
+  </div>
+  <div class="my-3">
+    <%= f.label :start_date %>
+    <%= f.datetime_field :start_date, class:"form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :end_date %>
+    <%= f.datetime_field :end_date, class:"form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :minimum_value %>
+    <%= f.number_field :minimum_value, class:"form-control"  %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :minimum_difference %>
+    <%= f.number_field :minimum_difference, class:"form-control" %>
+  </div>
+  <h4 class="mt-3">Lista de items no lote:</h4>
+  <% unless @lot.items.empty? %>
+    <div class="row align-items-center">
+      <% @lot.items.each do |item| %>
+        <div class="col-sm-12 col-md-4 col-lg-3">
+          <div class="card mb-3" id="item-<%= item.code %>" >
+            <div class="card-img-container">
+              <% if item.photo.attached? %>
+                <%= image_tag item.photo, class: 'card-img-top' %>
+              <% end %>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= f.check_box :item_ids, { multiple: true, id: "checkbox-btn-#{item.id}", class: 'btn-check' }, item.id, nil %>
+                <%= f.label :item_ids, 'Adicionado - ' + item.code, { for: "checkbox-btn-#{item.id}", class: 'btn btn-outline-success' } %>
+              </h5>
+              <p class="card-text">
+                <%= item.description[0,100] %>...
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <h4 class="mt-3">Lista de items disponiveis: </h4>
+  <% unless @items.empty? %>
+    <div class="row align-items-center">
+      <% @items.each do |item| %>
+        <div class="col-sm-12 col-md-4 col-lg-3">
+          <div class="card mb-3" id="item-<%= item.code %>" >
+            <div class="card-img-container">
+              <% if item.photo.attached? %>
+                <%= image_tag item.photo, class: 'card-img-top' %>
+              <% end %>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">
+                <%= f.check_box :item_ids, { multiple: true, id: "checkbox-btn-#{item.id}", class: 'btn-check' }, item.id, nil %>
+                <%= f.label :item_ids, 'Adicionar - ' + item.code, { for: "checkbox-btn-#{item.id}", class: 'btn btn-outline-success' } %>
+              </h5>
+              <p class="card-text">
+                <%= item.description[0,100] %>...
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <div id="form-bottom" class="d-flex justify-content-end gap-3 ">
+    <%= f.submit 'Salvar Edição', class: 'btn btn-success' %>
+    <%= link_to 'Voltar', @lot, class: 'btn btn-secondary' %>
+  </div>
+<% end %>

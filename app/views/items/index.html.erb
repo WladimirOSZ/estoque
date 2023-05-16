@@ -16,7 +16,7 @@
   <div class="row align-items-center">
       <% @items.each do |item| %>
         <div class="col-sm-12 col-md-4 col-lg-3">
-          <div class="card text-dark bg-light mb-3" style="max-width: 18rem;" id="item-<%= item.code %>" >
+          <div class="card mb-3" id="item-<%= item.code %>" >
             <% if item.photo.attached? %>
               <%= image_tag item.photo, class: 'card-img-top' %>
             <% end %>
