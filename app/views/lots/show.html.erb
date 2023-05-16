@@ -49,6 +49,9 @@
                   <%= item.description[0,100] %>...
                 </p>
               </div>
+              <div class="card-footer">
+                <%= link_to 'Visualizar item', item_path(item), class: 'btn btn-primary' %>
+              </div>
             </div>
           </div>
         <% end %>

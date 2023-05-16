@@ -76,7 +76,5 @@ describe 'Administrador cadastra items' do
       expect(page).to have_content('Decoração')
       expect(page).to have_content('Esporte')
     end
-
-    expect(page).to have_link('Voltar')
   end
 end

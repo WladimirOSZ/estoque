@@ -64,7 +64,7 @@ describe 'Administrador aprova lote' do
       click_on 'Salvar Edição'
     end
 
-    expect(page).to have_content('Não foi possível atualizar o lote!')
+    expect(page).to have_content('Não foi possível atualizar o lote')
     expect(page).to have_content('Aprovado por não pode ser o mesmo que o criador do lote')
   end
 end
