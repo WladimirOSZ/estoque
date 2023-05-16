@@ -57,8 +57,6 @@ describe 'Usuário cadastra categorias' do
       fill_in 'Nome', with: ''
       click_on 'Criar Categoria'
 
-      # erro aqui, está redirecionando para categories_path
-      # expect(current_path).to eq new_category_path
       expect(page).to have_content('Nome não pode ficar em branco')
       expect(page).to have_content('Nome é muito curto (mínimo: 3 caracteres)')
     end

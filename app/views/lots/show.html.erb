@@ -11,8 +11,8 @@
       <ul>
         <li>Data de abertura: <%= l @lot.start_date, format: :short %></li>
         <li>Data de fechamento: <%= l @lot.end_date, format: :short  %></li>
-        <li>Valor inicial do lote: <%= @lot.minimum_value %>R$</li>
-        <li>Diferença mínima entre lances: <%= @lot.minimum_difference %>R$</li>
+        <li>Valor inicial do lote: <%= number_to_currency(@lot.minimum_value) %></li>
+        <li>Diferença mínima entre lances: <%= number_to_currency(@lot.minimum_difference) %></li>
       </ul>
     </div>
     <div class="card text-dark bg-light mb-3"  id="lot-<%= @lot.code %>" >
@@ -21,6 +21,22 @@
         <% if is_admin? %>
           <h5>Criado por: <%= @lot.created_by.name %> </h5>
           <h5 class="text-warning"> <%= is_approved_status(@lot) %> </h5>
+        <% else %>
+          
+          <% if is_open(@lot) %>
+            <h5>Lance mais alto até o momento: <%= higghest_bid_as_text_or_currency(@lot) %></h5>
+            <h5>Lance mínimo: <%= number_to_currency(minimum_bid(@lot)) %> </h5>
+
+            <%= form_with model: [@lot, @lot.bids.build ] do |f| %>
+              <%= f.hidden_field :lot_id, value: @lot.id %>
+              <%= f.number_field :value, value: minimum_bid(@lot), class:'form-control' %>
+              <%= f.submit 'Dar lance', class: 'btn btn-primary mt-3' %>
+
+              
+            <% end %>
+          <% end %>
+          
+
         <% end %>
       </div>
       <% if is_admin? %>

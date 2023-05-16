@@ -3,9 +3,8 @@ class LotsController < ApplicationController
     if current_user.present? && current_user.admin?
       @unnaproved_lots = Lot.unnaproved
     end
-    @lots = Lot.avaliable
+    @lots = Lot.approved
   end
-  
 
   def lista_users_teste
     @users = User.all 

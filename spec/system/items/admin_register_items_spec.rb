@@ -77,4 +77,8 @@ describe 'Administrador cadastra items' do
       expect(page).to have_content('Esporte')
     end
   end
+
+  it 'E não preenche os campos' do
+    #Wladimir, volta aqui
+  end
 end

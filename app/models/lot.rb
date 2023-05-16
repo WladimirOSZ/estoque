@@ -1,8 +1,9 @@
 class Lot < ApplicationRecord
-  has_many :item_lot
-  has_many :items, through: :item_lot
   belongs_to :created_by, class_name: 'User', foreign_key: 'created_by_id'
   belongs_to :approved_by, class_name: 'User', foreign_key: 'approved_by_id', optional: true
+  has_many :item_lot
+  has_many :items, through: :item_lot
+  has_many :bids
   
   accepts_nested_attributes_for :items
 
@@ -56,7 +57,7 @@ class Lot < ApplicationRecord
     Lot.where("approved_by_id IS NULL")
   end
 
-  def self.avaliable
+  def self.approved
     unnaproved_lots = Lot.unnaproved.pluck(:id)
     Lot.where.not(id: unnaproved_lots)
   end

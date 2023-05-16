@@ -1,7 +1,14 @@
 require 'rails_helper'
 
 describe 'Usuário visualiza itens' do
-  it 'E visualiza um produto' do
+  it 'E não há itens cadastrados' do
+    visit root_path
+    click_on 'Itens'
+
+    expect(page).to have_content('Nenhum item cadastrado')
+  end
+
+  it 'E visualiza um item' do
     User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
       sex:1, role: :user, cpf: '111.222.333.44')
     login_as(User.last)
@@ -49,13 +56,6 @@ describe 'Usuário visualiza itens' do
       expect(page).to have_content('Cozinha')
       expect(page).to have_content('Esporte')
     end
-  end
-
-  it 'E não há itens cadastrados' do
-    visit root_path
-    click_on 'Itens'
-
-    expect(page).to have_content('Nenhum item cadastrado')
   end
 
   it 'E o item não está em um lote' do

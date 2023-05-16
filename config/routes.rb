@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   
   resources :lots do 
     resources :items_lots
+    resources :bids
   end
   
 end

@@ -18,6 +18,14 @@ describe "Administrador cria lote" do
     expect(page).to have_button('Criar Lote')
   end
 
+  it 'E preenche com dados inválidos' do
+    # wladimir, volta
+  end
+
+  it 'E preenche com dados em branco' do
+    # wladimir, volta
+  end
+
   it 'E preenche todos os campos' do
     User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
                 sex:1, role: :admin, cpf: '491.150.798.55')
@@ -39,8 +47,8 @@ describe "Administrador cria lote" do
     expect(page).to have_content('C0FF33')
     expect(page).to have_content('Data de abertura: 01 de janeiro, 00:00')
     expect(page).to have_content('Data de fechamento: 01 de fevereiro, 00:00')
-    expect(page).to have_content('Valor inicial do lote: 1000R$')
-    expect(page).to have_content('Diferença mínima entre lances: 100R$')
+    expect(page).to have_content('Valor inicial do lote: R$ 1.000,00')
+    expect(page).to have_content('Diferença mínima entre lances: R$ 100,00')
     expect(page).to have_content('Aberto')
     expect(page).to have_content('Não aprovado')
     expect(page).to have_content('Criado por: Wladimir Souza')
