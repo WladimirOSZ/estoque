@@ -60,11 +60,14 @@
     </nav>
     <div class="container">
       <div class="mt-3">
-        <div class="alert alert-success <%= notice.nil? ? 'd-none' : '' %>" role="alert">
+        <div class="alert alert-success alert-dismissible fade show <%= notice.nil? ? 'd-none' : '' %>" role="alert">
           <%= notice %>
+
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <div class="alert alert-warning <%= alert.nil? ? 'd-none' : '' %>">
+        <div class="alert alert-warning alert-dismissible fade show  <%= alert.nil? ? 'd-none' : '' %>" role="alert" > 
           <%= alert %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
       </div>
       <%= yield %>

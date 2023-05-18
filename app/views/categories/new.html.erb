@@ -1,14 +1,5 @@
 <h1>Cadastro de categoria</h1>
 
-<% if @category.errors.any? %>
-    <h2>
-        Verifique os erros abaixo:
-    </h2>
-    <ul>
-        <% @category.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-        <% end %>
-    </ul>
-<% end %>
+<%= render 'shared/display_errors', model: @category %>
 
 <%= render 'form' %>

@@ -71,9 +71,10 @@ class Lot < ApplicationRecord
     Lot.where("start_date > ?", Date.today).where("approved_by_id IS NOT NULL")
   end
 
-  def self.finished
+  def self.closed
     Lot.where("end_date < ?", Date.today)
   end
+  
 
   
 end

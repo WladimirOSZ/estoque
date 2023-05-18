@@ -19,9 +19,6 @@ class ItemsLotsController < ApplicationController
     if @items_lot.save
       redirect_to @items_lot
     else
-      # render errors
-      return render plain: @items_lot.errors.inspect
-
       render :new
     end
   end

@@ -14,4 +14,12 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :sex, :social_name, :cpf])
   end
+
+  def authenticate_user!
+    if user_signed_in?
+      super
+    else
+      redirect_to new_user_session_path, notice: 'Você precisa estar logado para concluir essa ação'
+    end
+  end
 end

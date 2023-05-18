@@ -1,12 +1,11 @@
 <% content_for :head do %>
   <%= stylesheet_link_tag 'item' %>
 <% end %>
-
 <div class="row">
   <div class="col-md-12 col-lg-4">
     <h3>Visualizando o lote <%= @lot.code %></h3>
     <h2 class="mb-3">Código: <%= @lot.code %></h2>
-    <div id="categories">
+    <div id="lot_info">
       <h4>Detalhes</h4>
       <ul>
         <li>Data de abertura: <%= l @lot.start_date, format: :short %></li>
@@ -22,21 +21,35 @@
           <h5>Criado por: <%= @lot.created_by.name %> </h5>
           <h5 class="text-warning"> <%= is_approved_status(@lot) %> </h5>
         <% else %>
-          
           <% if is_open(@lot) %>
             <h5>Lance mais alto até o momento: <%= higghest_bid_as_text_or_currency(@lot) %></h5>
             <h5>Lance mínimo: <%= number_to_currency(minimum_bid(@lot)) %> </h5>
+            <% if higghest_bid_is_from_this_user(@lot) %>
+              <div class="alert alert-success">
+                O maior lance é seu! Continue conferindo o lote para garantir seus itens.
+              </div>
+            <% elsif user_has_a_bid_in_this_lot(@lot) %>
+              <div class="alert alert-warning">
+                Opa! Alguém deu um lance maior que o seu lance de <%= number_to_currency(current_user_bid(@lot)) %>. Dê um novo lance para continuar participando.
+              </div>
+            <% end %>
 
+
+            <%= render 'shared/display_errors', model: @bid %>
+
+
+            
             <%= form_with model: [@lot, @lot.bids.build ] do |f| %>
               <%= f.hidden_field :lot_id, value: @lot.id %>
-              <%= f.number_field :value, value: minimum_bid(@lot), class:'form-control' %>
-              <%= f.submit 'Dar lance', class: 'btn btn-primary mt-3' %>
-
-              
+              <%= f.label :value, "Digite seu lance:", class:"h5 ms-2" %>
+              <div class="input-group mb-3">
+                <span class="input-group-text">R$</span>
+                <%= f.number_field :value, value: minimum_bid(@lot), class:'form-control' %>
+                <span class="input-group-text">,00</span>
+              </div>
+              <%= f.submit 'Dar lance', class: 'btn btn-success mb-3 w-100' %>
             <% end %>
           <% end %>
-          
-
         <% end %>
       </div>
       <% if is_admin? %>

@@ -27,6 +27,7 @@ class LotsController < ApplicationController
   def show
     @lot = Lot.find(params[:id])
     @items = Item.all
+    @bid = Bid.new
   end
 
   def edit

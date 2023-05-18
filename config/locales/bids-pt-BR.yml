@@ -1,0 +1,8 @@
+pt-BR:
+  activerecord:
+    models:
+      bid: "Lance"
+    attributes:
+      bid:
+        value: "Valor"
+        

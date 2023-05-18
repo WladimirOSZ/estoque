@@ -4,14 +4,12 @@ class BidsController < ApplicationController
   def create
     @bid = Bid.new bid_params
     @bid.user = current_user
-
     @lot = Lot.find(params[:bid][:lot_id])
-
+    
     if @bid.save
       redirect_to @lot, notice: 'Lance cadastrado com sucesso!'
     else
-      return render plain: @bid.inspect
-      flash.now[:alert] = 'Não foi possível cadastrar o lance'
+      flash.now[:alert] = 'Não foi possível fazer o lance'
       render 'lots/show', status: :unprocessable_entity
     end
   end
