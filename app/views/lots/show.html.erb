@@ -20,6 +20,7 @@
         <% if is_admin? %>
           <h5>Criado por: <%= @lot.created_by.name %> </h5>
           <h5 class="text-warning"> <%= is_approved_status(@lot) %> </h5>
+          <h5>Lance mais alto até o momento: <%= higghest_bid_as_text_or_currency(@lot) %></h5>
         <% else %>
           <% if is_open(@lot) %>
             <h5>Lance mais alto até o momento: <%= higghest_bid_as_text_or_currency(@lot) %></h5>
@@ -33,12 +34,7 @@
                 Opa! Alguém deu um lance maior que o seu lance de <%= number_to_currency(current_user_bid(@lot)) %>. Dê um novo lance para continuar participando.
               </div>
             <% end %>
-
-
             <%= render 'shared/display_errors', model: @bid %>
-
-
-            
             <%= form_with model: [@lot, @lot.bids.build ] do |f| %>
               <%= f.hidden_field :lot_id, value: @lot.id %>
               <%= f.label :value, "Digite seu lance:", class:"h5 ms-2" %>
@@ -53,7 +49,15 @@
         <% end %>
       </div>
       <% if is_admin? %>
-        <%= link_to 'Editar lote', edit_lot_path(@lot), class: 'btn btn-warning mb-1 text-white fw-bold' %>
+        <% if is_waiting(@lot) %>
+          <%= link_to 'Editar lote', edit_lot_path(@lot), class: 'btn btn-warning mb-1 text-white fw-bold' %>
+        <% elsif is_closed(@lot) %>
+          <% if higghest_bid(@lot).present? %>
+            <%= link_to 'Finalizar lote com vencedor', edit_lot_path(@lot), class: 'btn btn-warning mb-1 text-white fw-bold' %>
+          <% else %>
+            <%= link_to 'Cancelar lote', edit_lot_path(@lot), class: 'btn btn-warning mb-1 text-white fw-bold' %>
+          <% end %>
+        <% end %>
       <% end %>
       <%= link_to 'Voltar', lots_path, class: 'btn btn-primary fw-bold' %>
     </div>

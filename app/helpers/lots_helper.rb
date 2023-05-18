@@ -1,10 +1,10 @@
 module LotsHelper
   def is_open(lot)
-    Date.today.between?(lot.start_date, lot.end_date)
+    Time.now.between?(lot.start_date, lot.end_date)
   end
 
   def is_waiting(lot)
-    Date.today < lot.end_date
+    Time.now < lot.start_date
   end
   
   def current_time_status(lot)

@@ -36,8 +36,8 @@ describe "Administrador cria lote" do
     click_on 'Cadastrar lote'
 
     fill_in "Código",	with: "C0FF33" 
-    fill_in "Data de início",	with: "01/01/2023"
-    fill_in "Data final",	with: "01/02/2025"
+    fill_in "Data de início",	with: "01/11/2023"
+    fill_in "Data final",	with: "01/12/2023"
     fill_in "Valor mínimo",	with: "1000"
     fill_in "Diferença mínima",	with: "100"
     click_on 'Criar Lote'
@@ -45,11 +45,11 @@ describe "Administrador cria lote" do
     expect(page).to have_content('Lote criado com sucesso')
     expect(page).to have_content('Items do lote:')
     expect(page).to have_content('C0FF33')
-    expect(page).to have_content('Data de abertura: 01 de janeiro, 00:00')
-    expect(page).to have_content('Data de fechamento: 01 de fevereiro, 00:00')
+    expect(page).to have_content('Data de abertura: 01 de novembro, 00:00')
+    expect(page).to have_content('Data de fechamento: 01 de dezembro, 00:00')
     expect(page).to have_content('Valor inicial do lote: R$ 1.000,00')
     expect(page).to have_content('Diferença mínima entre lances: R$ 100,00')
-    expect(page).to have_content('Aberto')
+    expect(page).to have_content('Aguardando')
     expect(page).to have_content('Não aprovado')
     expect(page).to have_content('Criado por: Wladimir Souza')
     expect(page).to have_link('Editar lote')

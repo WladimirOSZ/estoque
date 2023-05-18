@@ -1,0 +1,6 @@
+<h2 class="mb-4">Lotes finalizados aguardando validação ou cancelamento </h2>
+<% if @lots.exists? %>
+  <%= render 'shared/display_lots', lots: @lots %>
+<% else %>
+  <p> Não há lotes aguardando validação ou cancelamento. </p>
+<% end %>

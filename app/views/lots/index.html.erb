@@ -3,74 +3,15 @@
   <%= link_to 'Cadastrar lote', new_lot_path, class:"btn btn-success my-3" %>
 <% end %>
 <% unless @unnaproved_lots.nil? %>
-  
   <% unless @unnaproved_lots.empty? %>
     <hr>
   <% end %>
-  
-  <div class="row align-items-center">
-    <% @unnaproved_lots.each do |lot| %>
-      <div class="col-sm-12 col-md-4 col-lg-3">
-        <div class="card mb-3"  id="lot-<%= lot.code %>" >
-          <div class="card-header">Lote <%= lot.code %> - Aguardando aprovação</div>
-          <div class="card-body">
-            <h5 class="card-title"><%= current_time_status(lot) %></h5>
-            <p class="card-text">
-              Valor inicial do lote: <%= lot.minimum_value %><br>
-              Diferença mínima entre lances: <%= lot.minimum_difference %><br>
-              <% if is_open(lot) %>
-                Lance mais alto do lote até o momento: <br>
-                Iniciou há: <%= distance_of_time_in_words_to_now(lot.start_date) %><br>
-                Finaliza em: <%= distance_of_time_in_words_to_now(lot.end_date) %><br>
-              <% else %>
-                Inicia em: <%= distance_of_time_in_words_to_now(lot.start_date) %><br>
-                Finaliza após: <%= distance_of_time_in_words_to_now(lot.end_date) %><br>
-              <% end %>
-            </p>
-          </div>
-          <div class="card-footer">
-            <%= link_to 'Ver lote', lot, class: 'btn btn-primary' %>
-            <% if !is_open(lot) && is_admin? %>
-              <%= link_to 'Adicionar items', edit_lot_path(lot), class: 'btn btn-primary' %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
+  <%= render 'shared/display_lots', lots: @unnaproved_lots %>
 <% end %>
 <% unless @lots.empty? %>
   <hr>
-  <div class="row align-items-center">
-    <% @lots.each do |lot| %>
-      <div class="col-sm-12 col-md-4 col-lg-3">
-        <div class="card mb-3"  id="lot-<%= lot.code %>" >
-          <div class="card-header">Lote <%= lot.code %></div>
-          <div class="card-body">
-            <h5 class="card-title"><%= current_time_status(lot) %></h5>
-            <p class="card-text">
-              Valor inicial do lote: <%= lot.minimum_value %><br>
-              Diferença mínima entre lances: <%= lot.minimum_difference %><br>
-              <% if is_open(lot) %>
-                Lance mais alto do lote até o momento: <br>
-                Iniciou há: <%= distance_of_time_in_words_to_now(lot.start_date) %><br>
-                Finaliza em: <%= distance_of_time_in_words_to_now(lot.end_date) %><br>
-              <% else %>
-                Inicia em: <%= distance_of_time_in_words_to_now(lot.start_date) %><br>
-                Finaliza após: <%= distance_of_time_in_words_to_now(lot.end_date) %><br>
-              <% end %>
-            </p>
-          </div>
-          <div class="card-footer">
-            <%= link_to 'Ver lote', lot, class: 'btn btn-primary' %>
-            <% if !is_open(lot) && is_admin? %>
-              <%= link_to 'Adicionar items', edit_lot_path(lot), class: 'btn btn-primary' %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
+  <%= render 'shared/display_lots', lots: @lots %>
+</div>
 <% else %>
   <p>Não há lotes disponíveis</p>
 <% end %>

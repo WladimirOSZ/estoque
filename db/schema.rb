@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_16_012559) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_18_020405) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -98,6 +98,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_012559) do
     t.datetime "updated_at", null: false
     t.integer "created_by_id", null: false
     t.integer "approved_by_id"
+    t.integer "status"
     t.index ["approved_by_id"], name: "index_lots_on_approved_by_id"
     t.index ["created_by_id"], name: "index_lots_on_created_by_id"
   end

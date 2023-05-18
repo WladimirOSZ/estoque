@@ -25,7 +25,7 @@ class ItemsLotsController < ApplicationController
 
   private
   def is_open(lot)
-    Date.today.between?(lot.start_date, lot.end_date)
+    Time.now.between?(lot.start_date, lot.end_date)
   end
   def items_lot_params
     params.require(:item_lot).permit(:item_ids => [])

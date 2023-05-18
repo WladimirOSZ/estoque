@@ -4,6 +4,8 @@ class Lot < ApplicationRecord
   has_many :item_lot
   has_many :items, through: :item_lot
   has_many :bids
+
+  enum status: { canceled: 0, succeeded: 1 }
   
   accepts_nested_attributes_for :items
 
@@ -20,7 +22,7 @@ class Lot < ApplicationRecord
 
 
   def end_date_cannot_be_in_the_past
-    if end_date.present? && end_date < Date.today
+    if end_date.present? && end_date < Time.now
       errors.add(:end_date, "can't be in the past")
     end
   end
@@ -63,16 +65,16 @@ class Lot < ApplicationRecord
   end
 
   def self.ongoing
-    Lot.where(Date.today.between(:start_date, :end_date)).where("approved_by_id IS NOT NULL")
+    Lot.where(start_date: Date.today.., end_date: ..Date.today).where.not(approved_by_id: nil)
     # Lot.where("start_date <= ? AND end_date >= ?", Date.today, Date.today).where("approved_by_id IS NOT NULL")
   end
 
   def self.future
-    Lot.where("start_date > ?", Date.today).where("approved_by_id IS NOT NULL")
+    Lot.where("start_date > ?", Time.now).where.not(approved_by_id: nil)
   end
 
   def self.closed
-    Lot.where("end_date < ?", Date.today)
+    Lot.where("end_date < ?", Time.now)
   end
   
 

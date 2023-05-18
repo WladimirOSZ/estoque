@@ -4,7 +4,7 @@ include ActiveSupport::Testing::TimeHelpers
 describe 'Usuário dá um lance' do
   it 'E vê o maior lance' do
     user_1 = User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-      sex:1, role: :user, cpf: '111.222.333.44')
+                          sex:1, role: :user, cpf: '111.222.333.44')
     login_as(user_1)
 
     user_2 = User.create!(name: 'Joãozinho da Silva',email: 'segundouser@gmail.com', password: 'password',

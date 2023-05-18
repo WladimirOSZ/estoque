@@ -31,21 +31,25 @@
             <li class="nav-item me-auto">
               <%= link_to "Categorias", categories_path,  class:"nav-link" %>
             </li>
-            <% if user_signed_in? %>
+            <% if is_user? %>
               <li class="nav-item">
                 <a class="nav-link" href="#">Meus lances</a>
               </li>
               <li class="nav-item ">
                 <a class="nav-link" href="#">Lotes favoritos</a>
               </li>
-              <% if current_user.admin? %>
-                <li class="nav-item">
-                  <%= link_to "Usuários", users_path,  class:"nav-link" %>
-                </li>
-              <% end %>
               <li class="nav-item ">
                 <%= link_to current_user.name, edit_user_registration_path, class:"nav-link" %>
               </li>
+              <li class="nav-item">
+                <%= button_to "Sair", destroy_user_session_path, method: :delete, class:"nav-link" %>
+              </li>
+            <% elsif is_admin? %>
+              <li class="nav-item">
+                <%= link_to "Lotes finalizados", waiting_approval_lots_path,  class:"nav-link" %>
+              </li>
+            <% end %>
+            <% if current_user.present? %>
               <li class="nav-item">
                 <%= button_to "Sair", destroy_user_session_path, method: :delete, class:"nav-link" %>
               </li>
@@ -62,10 +66,9 @@
       <div class="mt-3">
         <div class="alert alert-success alert-dismissible fade show <%= notice.nil? ? 'd-none' : '' %>" role="alert">
           <%= notice %>
-
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <div class="alert alert-warning alert-dismissible fade show  <%= alert.nil? ? 'd-none' : '' %>" role="alert" > 
+        <div class="alert alert-warning alert-dismissible fade show  <%= alert.nil? ? 'd-none' : '' %>" role="alert" >
           <%= alert %>
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>

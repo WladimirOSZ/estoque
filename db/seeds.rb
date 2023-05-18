@@ -38,13 +38,17 @@ first_lot = Lot.create!(code: 'ABC123', start_date: '2021-05-01 10:15:00', end_d
           created_by: first_admin, approved_by: second_admin)
 
 second_lot = Lot.create!(code: 'ABC111', start_date: '2021-05-01 10:15:00', end_date: '2023-05-30 15:30:00',
-            minimum_value: 100, minimum_difference: 10,
+            minimum_value: 200, minimum_difference: 10,
             created_by: second_admin, approved_by: first_admin)
 
 
 third_lot = Lot.create!(code: 'ABC999', start_date: '2021-05-01 10:15:00', end_date: '2023-05-30 15:30:00',
-              minimum_value: 100, minimum_difference: 10,
+              minimum_value: 300, minimum_difference: 50,
               created_by: second_admin, approved_by: first_admin)
+
+fourth_lot = Lot.create!(code: 'ZAZ123', start_date: '2021-05-01 10:15:00', end_date: 2.seconds.from_now,
+                minimum_value: 100, minimum_difference: 10,
+                created_by: second_admin, approved_by: first_admin)
 
 
 # itemSeeder
@@ -63,6 +67,7 @@ caneca_vasco_image = { io: File.open(Rails.root.join('db/seeds_images/caneca-vas
 iphone_image = { io: File.open(Rails.root.join('db/seeds_images/iphonexs.png')), filename: 'iphonexs.png', content_type: 'image/jpg' }
 s20_image = { io: File.open(Rails.root.join('db/seeds_images/s20.jpg')), filename: 's20.jpg', content_type: 'image/jpg' }
 tvsamsung_image = { io: File.open(Rails.root.join('db/seeds_images/tvsamsung.jpg')), filename: 'tvsamsung.jpg', content_type: 'image/jpg' }
+motoyamaha_image = { io: File.open(Rails.root.join('db/seeds_images/moto-leilao.png')), filename: 'moto-leilao.png', content_type: 'image/png' }
 
 # Criando itens
 first_item = Item.create!(
@@ -90,6 +95,10 @@ fifth_item = Item.create!(
   description: 'A TV Samsung é uma televisão de alta definição que proporciona uma experiência de entretenimento incrível. Com uma tela grande e tecnologia avançada, você pode desfrutar de imagens nítidas e cores vibrantes. Aproveite seus filmes, programas de TV e jogos favoritos com qualidade de imagem excepcional. Além disso, a TV Samsung possui recursos inteligentes que permitem acessar conteúdos online e conectar-se a outros dispositivos.',
   photo: tvsamsung_image, weight: 12000, width: 120, height: 70, depth: 10, user_id: first_admin.id)
 
+sixth_item = Item.create!(
+  name: 'YAMAHA YBR150 FACTOR ED 19/20',
+  description: 'Bem encontra-se: Rod. Anhanguera, Km 306,5 - Ribeirão Preto/SP - Veiculounico Dono. CRLV-e será entregue junto com o veiculo. Documentação para transferência (ATPV-e) em até 20 dias úteis. IPVA 2023 PAGO, porém se por ventura surgir algum residuo inclusive dos anos anteriores serão de inteira responsabilidade e encargos do comprador. Transferência, dpvat se houver e LICENCIAMENTO serão de responsabilidade e encargos do comprador.(1) O veículo será vendido no estado em que se encontra, sem garantias quanto à problemas mecanicos e eletrica mesmo de forma oculta, estrutura em suas características estruturais, reparos, reposições de peças ou substituições. (2) Os veículos encontram-se à disposição para que os arrematantes, previamente ao leilão, efetuem todas as vistorias necessárias no bem a ser adquirido, de forma que o comitente vendedor não aceitará reclamações posteriores à venda. (3) Multas que possam aparecer após a transferência com data da origem até a data do leilão serão de encargos e resposnabilidade do vendedor.',
+  photo: motoyamaha_image, weight: 12000, width: 120, height: 70, depth: 10, user_id: first_admin.id)
 # itemLotSeeder
 
 ItemLot.create!(item_id: first_item.id, lot_id: first_lot.id)
@@ -97,4 +106,4 @@ ItemLot.create!(item_id: second_item.id, lot_id: first_lot.id)
 ItemLot.create!(item_id: third_item.id, lot_id: first_lot.id)
 ItemLot.create!(item_id: fourth_item.id, lot_id: second_lot.id)
 ItemLot.create!(item_id: fifth_item.id, lot_id: second_lot.id)
-
+ItemLot.create!(item_id: sixth_item.id, lot_id: fourth_lot.id)

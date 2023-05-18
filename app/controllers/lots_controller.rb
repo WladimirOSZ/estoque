@@ -1,4 +1,6 @@
 class LotsController < ApplicationController
+  before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :waiting_approval]
+  
   def index
     if current_user.present? && current_user.admin?
       @unnaproved_lots = Lot.unnaproved
@@ -56,6 +58,15 @@ class LotsController < ApplicationController
       flash.now[:alert] = 'Não foi possível atualizar o lote'
       render 'edit'
     end
+  end
+
+  def waiting_approval
+    @lots = Lot.closed
+  end
+
+  def update_approval
+    @lot = Lot.find(params[:id])
+    
   end
 
   private
