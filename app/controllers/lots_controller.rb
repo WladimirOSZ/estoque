@@ -1,6 +1,7 @@
 class LotsController < ApplicationController
-  before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :waiting_approval]
-  
+  before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :waiting_approval, :update_approval]
+  before_action :authenticate_user!, only: [:won_lots]
+
   def index
     if current_user.present? && current_user.admin?
       @unnaproved_lots = Lot.unnaproved
@@ -61,12 +62,49 @@ class LotsController < ApplicationController
   end
 
   def waiting_approval
-    @lots = Lot.closed
+    @lots = Lot.where("end_date < ?", Time.now).where(status: :ongoing)
+    @lots_succeded = Lot.succeeded
+    @lots_canceled = Lot.canceled
   end
 
   def update_approval
     @lot = Lot.find(params[:id])
-    
+
+    # wladimir, volta aqui. isso ta feio.
+    if params[:canceled] == "true"
+      @lot.status = :canceled
+    elsif params[:canceled] == "false"
+      @lot.status = :succeeded
+    end
+
+
+    if @lot.valid? 
+      Lot.transaction do
+        if @lot.save
+          @lot.item_lot.update_all(canceled: params[:canceled])
+          redirect_to waiting_approval_lots_path, notice: 'Status do lote atualizado com sucesso!'
+        else
+          redirect_to waiting_approval_lots_path, alert: 'Não foi possível atualizar o lote'
+        end
+      end
+    else
+      puts @lot.errors.full_messages
+
+      redirect_to waiting_approval_lots_path, alert: 'Não foi possível atualizar o lote'
+    end
+  end
+
+  def won_lots
+    # get the lots that the user won from the user.bids
+    lots_from_bids = current_user.bids.pluck(:lot_id).uniq
+    return render plain: lots_from_bids.inspect
+    # lots_from_bids.each do |lot_id|
+    #   lot = Lot.find(lot_id)
+    #   if lot.status == :succeeded
+    #     @lots = Lot.where(id: lots_from_bids)
+    #   end
+    # end
+
   end
 
   private

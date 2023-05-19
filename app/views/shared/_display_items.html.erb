@@ -18,8 +18,8 @@
       <div class="card-footer">
         <%= link_to 'Ver item', item, class: 'btn btn-primary' %>
         <% if display_lot_button.present? && display_lot_button %>
-          <% if item.lot.present? %>
-            <%= link_to 'Ver lote', item.lot, class: 'btn btn-primary' %>
+          <% if item.lots.last.present? %>
+            <%= link_to 'Ver lote', item.lots.last, class: 'btn btn-primary' %>
           <% end %>
         <% end %>
       </div>

@@ -29,19 +29,17 @@
   <div class="col-md-6 col-lg-4">
     <div class="card text-dark bg-light mb-3" id="info-item" >
       <div class="card-body">
-        <% if @item.lot.present? %>
-          <% if is_approved(@item.lot) %>
-            <%# se tem lances %>
-            <%# se não tem %>
-            <h5 class="card-title">Item do lote <%= @item.lot.code %></h5>
+        <% if @item.lots.last.present? %>
+          <% if is_approved(@item.lots.last) %>
+            <h5 class="card-title">Item do lote <%= @item.lots.last.code %></h5>
             <p class="card-text">
               Este item ainda não possui lances, seja o primeiro!
             </p>
             <ul>
-              <li>Lance mínimo: <%= number_to_currency(@item.lot.minimum_value) %></li>
-              <li>Diferença mínima entre lances: <%= number_to_currency(@item.lot.minimum_difference) %></li>
-              <li>Estado do lote: <%= current_time_status(@item.lot)  %></li>
-              <li>O lote fecha em: <%= distance_of_time_in_words_to_now(@item.lot.end_date) %> </li>
+              <li>Lance mínimo: <%= number_to_currency(@item.lots.last.minimum_value) %></li>
+              <li>Diferença mínima entre lances: <%= number_to_currency(@item.lots.last.minimum_difference) %></li>
+              <li>Estado do lote: <%= current_time_status(@item.lots.last)  %></li>
+              <li>O lote fecha em: <%= distance_of_time_in_words_to_now(@item.lots.last.end_date) %> </li>
             </ul>
             
           <% else %>
@@ -51,8 +49,8 @@
           <h5 class="card-title">Este item ainda não está em nenhum lote</h5>
         <% end %>
       </div>
-      <% if @item.lot.present? %>
-        <%= link_to 'Ver lote', @item.lot, class:'btn btn-success mb-2' %>
+      <% if @item.lots.last.present? %>
+        <%= link_to 'Ver lote', @item.lots.last, class:'btn btn-success mb-2' %>
       <% end %>
       <%= link_to 'Ver todos itens', items_path, class: 'btn btn-primary' %>
     </div>

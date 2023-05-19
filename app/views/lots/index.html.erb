@@ -2,13 +2,12 @@
 <% if is_admin? %>
   <%= link_to 'Cadastrar lote', new_lot_path, class:"btn btn-success my-3" %>
 <% end %>
-<% unless @unnaproved_lots.nil? %>
-  <% unless @unnaproved_lots.empty? %>
+<% if @unnaproved_lots.present? %>
     <hr>
-  <% end %>
+    <h2>Lotes aguardando aprovação do administrador: </h2>
   <%= render 'shared/display_lots', lots: @unnaproved_lots %>
 <% end %>
-<% unless @lots.empty? %>
+<% if @lots.present? %>
   <hr>
   <%= render 'shared/display_lots', lots: @lots %>
 </div>

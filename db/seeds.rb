@@ -42,23 +42,21 @@ second_lot = Lot.create!(code: 'ABC111', start_date: '2021-05-01 10:15:00', end_
             created_by: second_admin, approved_by: first_admin)
 
 
-third_lot = Lot.create!(code: 'ABC999', start_date: '2021-05-01 10:15:00', end_date: '2023-05-30 15:30:00',
+third_lot = Lot.create!(code: 'ABC999', start_date: 1.day.from_now, end_date: 5.days.from_now,
               minimum_value: 300, minimum_difference: 50,
-              created_by: second_admin, approved_by: first_admin)
+              created_by: second_admin)
 
-fourth_lot = Lot.create!(code: 'ZAZ123', start_date: '2021-05-01 10:15:00', end_date: 2.seconds.from_now,
+fourth_lot = Lot.create!(code: 'ZAZ123', start_date: '2021-05-01 10:15:00', end_date: 50.seconds.from_now,
                 minimum_value: 100, minimum_difference: 10,
                 created_by: second_admin, approved_by: first_admin)
 
+fifith_lot = Lot.create!(code: 'ZZZ111', start_date: '2021-05-01 10:15:00', end_date: 5.seconds.from_now,
+                  minimum_value: 250, minimum_difference: 30,
+                  created_by: second_admin)
+
+
 
 # itemSeeder
-
-# image = fixture_file_upload(Rails.root.join('spec/support/images/iphonexs.png'), 'image/png')
-image = { io: File.open(Rails.root.join('db/seeds_images/iphonexs.png')), filename: 'iphonexs.png', content_type: 'image/png' }
-
-first_item = Item.create!(name: 'Iphone 15.5 XS',
-              description: 'O iPhone XS é um smartphone da Apple lançado em setembro de 2018. Equipado com um processador A12 Bionic, o iPhone XS oferece desempenho poderoso e eficiência energética. Possui uma tela OLED Super Retina de 5,8 polegadas, que proporciona cores vibrantes e pretos profundos, além de suporte ao HDR10 e Dolby Vision.',
-              photo: image, weight: 1, width: 10, height: 10, depth: 10, user_id: first_admin.id)
 
 
 # Carregando imagens
@@ -68,6 +66,8 @@ iphone_image = { io: File.open(Rails.root.join('db/seeds_images/iphonexs.png')),
 s20_image = { io: File.open(Rails.root.join('db/seeds_images/s20.jpg')), filename: 's20.jpg', content_type: 'image/jpg' }
 tvsamsung_image = { io: File.open(Rails.root.join('db/seeds_images/tvsamsung.jpg')), filename: 'tvsamsung.jpg', content_type: 'image/jpg' }
 motoyamaha_image = { io: File.open(Rails.root.join('db/seeds_images/moto-leilao.png')), filename: 'moto-leilao.png', content_type: 'image/png' }
+gol_gw = { io: File.open(Rails.root.join('db/seeds_images/gol-gts.jpg')), filename: 'gol-gts.jpg', content_type: 'image/jpg' }
+gol_gw2 = { io: File.open(Rails.root.join('db/seeds_images/gol-gts.jpg')), filename: 'gol-gts.jpg', content_type: 'image/jpg' }
 
 # Criando itens
 first_item = Item.create!(
@@ -99,11 +99,24 @@ sixth_item = Item.create!(
   name: 'YAMAHA YBR150 FACTOR ED 19/20',
   description: 'Bem encontra-se: Rod. Anhanguera, Km 306,5 - Ribeirão Preto/SP - Veiculounico Dono. CRLV-e será entregue junto com o veiculo. Documentação para transferência (ATPV-e) em até 20 dias úteis. IPVA 2023 PAGO, porém se por ventura surgir algum residuo inclusive dos anos anteriores serão de inteira responsabilidade e encargos do comprador. Transferência, dpvat se houver e LICENCIAMENTO serão de responsabilidade e encargos do comprador.(1) O veículo será vendido no estado em que se encontra, sem garantias quanto à problemas mecanicos e eletrica mesmo de forma oculta, estrutura em suas características estruturais, reparos, reposições de peças ou substituições. (2) Os veículos encontram-se à disposição para que os arrematantes, previamente ao leilão, efetuem todas as vistorias necessárias no bem a ser adquirido, de forma que o comitente vendedor não aceitará reclamações posteriores à venda. (3) Multas que possam aparecer após a transferência com data da origem até a data do leilão serão de encargos e resposnabilidade do vendedor.',
   photo: motoyamaha_image, weight: 12000, width: 120, height: 70, depth: 10, user_id: first_admin.id)
-# itemLotSeeder
 
+seventh_item = Item.create!(
+    name: 'VW GOL GTS',
+    description: 'VW GOL GTS PLACA KCG0165 SEBASTIANOPOLIS DO SUL - ANO 87/87 - COR CINZA - COMB ALCOOL - CHASSI 9BWZZZ30ZHT066498 - MOTOR UE182622 - RENAVAN 112936709 - SUCATA SEM DIREITO A DOCUMENTO - MELHOR CARRO JÁ FEITO NO BRASIL.',
+    photo: gol_gw, weight: 12000, width: 120, height: 70, depth: 10, user_id: first_admin.id)
+
+eight_item = Item.create!(
+    name: 'GOL TURBO',
+    description: 'VW GOL GTS PLACA KCG0165 SEBASTIANOPOLIS DO SUL - ANO 87/87 - COR CINZA - COMB ALCOOL - CHASSI 9BWZZZ30ZHT066498 - MOTOR UE182622 - RENAVAN 112936709 - SUCATA SEM DIREITO A DOCUMENTO - MELHOR CARRO JÁ FEITO NO BRASIL.',
+    photo: gol_gw2, weight: 12000, width: 120, height: 70, depth: 10, user_id: first_admin.id)
+  
 ItemLot.create!(item_id: first_item.id, lot_id: first_lot.id)
 ItemLot.create!(item_id: second_item.id, lot_id: first_lot.id)
 ItemLot.create!(item_id: third_item.id, lot_id: first_lot.id)
 ItemLot.create!(item_id: fourth_item.id, lot_id: second_lot.id)
 ItemLot.create!(item_id: fifth_item.id, lot_id: second_lot.id)
 ItemLot.create!(item_id: sixth_item.id, lot_id: fourth_lot.id)
+ItemLot.create!(item_id: seventh_item.id, lot_id: fourth_lot.id)
+ItemLot.create!(item_id: eight_item.id, lot_id: fifith_lot.id)
+
+Bid.create!(user_id: second_user.id, lot_id: fourth_lot.id, value: 300)

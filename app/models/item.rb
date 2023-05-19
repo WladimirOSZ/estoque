@@ -1,11 +1,9 @@
 class Item < ApplicationRecord
   has_many :item_categories
   has_many :categories, through: :item_categories
-  has_one :item_lot
-  has_one :lot, through: :item_lot
+  has_many :item_lot
+  has_many :lots, through: :item_lot
   belongs_to :user, class_name: 'User', foreign_key: 'user_id'
-  
-
 
   has_one_attached :photo
 
@@ -19,7 +17,7 @@ class Item < ApplicationRecord
   before_validation :generate_code
 
   def self.avaliable
-    unavaliable_items = ItemLot.pluck(:item_id)
+    unavaliable_items = ItemLot.avaliable.pluck(:item_id)
     @items = Item.where.not(id: unavaliable_items)
   end
 

@@ -48,18 +48,34 @@
           <% end %>
         <% end %>
       </div>
+      <div class="card-footer" id="action_card_footer" >
       <% if is_admin? %>
         <% if is_waiting(@lot) %>
           <%= link_to 'Editar lote', edit_lot_path(@lot), class: 'btn btn-warning mb-1 text-white fw-bold' %>
         <% elsif is_closed(@lot) %>
-          <% if higghest_bid(@lot).present? %>
-            <%= link_to 'Finalizar lote com vencedor', edit_lot_path(@lot), class: 'btn btn-warning mb-1 text-white fw-bold' %>
+          <% if @lot.succeeded? %>
+            <div class="alert alert-success">
+              Lote finalizado com sucesso!
+            </div>
+          <% elsif @lot.canceled? %>
+            <div class="alert alert-danger">
+              Lote cancelado por falta de lances.
+            </div>
           <% else %>
-            <%= link_to 'Cancelar lote', edit_lot_path(@lot), class: 'btn btn-warning mb-1 text-white fw-bold' %>
+            <% if higghest_bid(@lot).present? %>
+              <%= form_with url: update_approval_lot_path(@lot, canceled: false), method: :post do %>
+                <%= submit_tag 'Finalizar lote', class: 'btn btn-warning mb-1 text-white fw-bold w-100' %>
+              <% end %>
+            <% else %>
+              <%= form_with url: update_approval_lot_path(@lot, canceled: true), method: :post do %>
+                <%= submit_tag 'Cancelar lote', class: 'btn btn-warning mb-1 text-white fw-bold w-100' %>
+              <% end %>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>
-      <%= link_to 'Voltar', lots_path, class: 'btn btn-primary fw-bold' %>
+      <%= link_to 'Voltar', lots_path, class: 'btn btn-primary fw-bold w-100' %>
+      </div>
     </div>
   </div>
   <div class="col-sm-12 col-lg-8">

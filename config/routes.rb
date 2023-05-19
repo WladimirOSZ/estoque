@@ -12,8 +12,11 @@ Rails.application.routes.draw do
   
   resources :lots do 
     get 'waiting_approval', on: :collection
+    get 'won_lots', on: :collection
+    post 'update_approval', on: :member
     resources :items_lots
     resources :bids
   end
+
   
 end

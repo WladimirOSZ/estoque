@@ -5,7 +5,7 @@ class Lot < ApplicationRecord
   has_many :items, through: :item_lot
   has_many :bids
 
-  enum status: { canceled: 0, succeeded: 1 }
+  enum status: { canceled: 0, succeeded: 1, ongoing: 2 }
   
   accepts_nested_attributes_for :items
 
@@ -14,12 +14,12 @@ class Lot < ApplicationRecord
   validates :minimum_value, numericality: { greater_than: 99 }
   validates :minimum_difference, numericality: { greater_than: 9 }
 
-  validate :end_date_cannot_be_in_the_past
+  validate :end_date_cannot_be_in_the_past, if: :end_date_changed?
   validate :code_needs_three_letters_and_six_characters
   validate :created_by_needs_to_be_admin
   validate :approved_by_needs_to_be_admin
+  validate :approved_by_cant_be_set_if_the_lot_has_no_items, on: :update
   validate :created_by_cant_be_the_same_as_approved_by
-
 
   def end_date_cannot_be_in_the_past
     if end_date.present? && end_date < Time.now
@@ -48,12 +48,17 @@ class Lot < ApplicationRecord
     end
   end
 
+  def approved_by_cant_be_set_if_the_lot_has_no_items
+    if approved_by_id.present? && items.empty?
+      errors.add(:approved_by_id, "não pode ser definido em um lote sem items")
+    end
+  end
+
   def created_by_cant_be_the_same_as_approved_by
     if created_by_id.present? && approved_by_id.present? && created_by_id == approved_by_id
       errors.add(:approved_by_id, "não pode ser o mesmo que o criador do lote")
     end
   end
-
 
   def self.unnaproved
     Lot.where("approved_by_id IS NULL")
@@ -66,17 +71,15 @@ class Lot < ApplicationRecord
 
   def self.ongoing
     Lot.where(start_date: Date.today.., end_date: ..Date.today).where.not(approved_by_id: nil)
-    # Lot.where("start_date <= ? AND end_date >= ?", Date.today, Date.today).where("approved_by_id IS NOT NULL")
   end
 
   def self.future
     Lot.where("start_date > ?", Time.now).where.not(approved_by_id: nil)
   end
 
+  
   def self.closed
     Lot.where("end_date < ?", Time.now)
   end
-  
-
   
 end

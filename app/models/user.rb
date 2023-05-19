@@ -1,6 +1,8 @@
 class User < ApplicationRecord
+
+  has_many :bids
+
   enum role: { user: 0, admin: 1 }
-  enum sex: { Masculino: 0, Feminino: 1, Outro: 2, ND: 3 }
 
   validates :name, presence: true, length: { minimum: 3 }
   validates :cpf, presence: true, uniqueness: true, length: { is: 11 }

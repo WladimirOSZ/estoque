@@ -5,6 +5,7 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find params[:id]
+    # return render plain: @item.lots.succeeded.first.inspect
   end
 
   def new
