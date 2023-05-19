@@ -12,7 +12,9 @@ describe 'Usuário visualiza lotes' do
       click_on 'Lotes'
     end
 
-    expect(page).to have_content('Não há lotes disponíveis')
+    expect(page).to have_content('Não há lotes acontecendo no momento')
+    expect(page).to have_content('Não há lotes futuros no momento')
+    expect(page).to have_content('Não há lotes fechados no momento')
   end
 
   it 'E há lotes cadastrados, mas nenhum aprovado' do
@@ -33,7 +35,9 @@ describe 'Usuário visualiza lotes' do
       click_on 'Lotes'
     end
 
-    expect(page).to have_content('Não há lotes disponíveis')
+    expect(page).to have_content('Não há lotes acontecendo no momento')
+    expect(page).to have_content('Não há lotes futuros no momento')
+    expect(page).to have_content('Não há lotes fechados no momento')
   end
 
   it 'E vê todos os lotes cadastrados' do
@@ -62,16 +66,20 @@ describe 'Usuário visualiza lotes' do
       click_on 'Lotes'
     end
 
-    within("div#lot-ABC123") do
-      expect(page).to have_content('Lote ABC123')
-      expect(page).to have_content('Aberto')
-      expect(page).to have_link('Ver lote')
+    within("div#ongoing-lots") do
+      within("div#lot-ABC123") do
+        expect(page).to have_content('Lote ABC123')
+        expect(page).to have_content('Aberto')
+        expect(page).to have_link('Ver lote')
+      end
     end
 
-    within("div#lot-3C1A2B") do
-      expect(page).to have_content('Lote 3C1A2B')
-      expect(page).to have_content('Aguardando')
-      expect(page).to have_link('Ver lote')
+    within("div#future-lots") do
+      within("div#lot-3C1A2B") do
+        expect(page).to have_content('Lote 3C1A2B')
+        expect(page).to have_content('Aguardando')
+        expect(page).to have_link('Ver lote')
+      end
     end
   end
   

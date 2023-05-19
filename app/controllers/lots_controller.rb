@@ -6,7 +6,10 @@ class LotsController < ApplicationController
     if current_user.present? && current_user.admin?
       @unnaproved_lots = Lot.unnaproved
     end
-    @lots = Lot.approved
+    @ongoing_lots = Lot.ongoing
+    @future_lots = Lot.future
+    @closed_lots = Lot.closed
+
   end
 
   def lista_users_teste

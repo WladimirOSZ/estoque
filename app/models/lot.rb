@@ -70,16 +70,16 @@ class Lot < ApplicationRecord
   end
 
   def self.ongoing
-    Lot.where(start_date: Date.today.., end_date: ..Date.today).where.not(approved_by_id: nil)
+    Lot.where('start_date < ? AND end_date > ?', Time.current, Time.current).where.not(approved_by_id: nil)
   end
 
   def self.future
-    Lot.where("start_date > ?", Time.now).where.not(approved_by_id: nil)
+    Lot.where("start_date > ?", Time.current).where.not(approved_by_id: nil)
   end
 
   
   def self.closed
-    Lot.where("end_date < ?", Time.now)
+    Lot.where("end_date < ?", Time.current)
   end
   
 end

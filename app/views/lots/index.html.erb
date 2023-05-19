@@ -1,16 +1,33 @@
 <h1>Leilão de lotes</h1>
 <% if is_admin? %>
   <%= link_to 'Cadastrar lote', new_lot_path, class:"btn btn-success my-3" %>
-<% end %>
-<% if @unnaproved_lots.present? %>
+  <% if @unnaproved_lots.present? %>
     <hr>
     <h2>Lotes aguardando aprovação do administrador: </h2>
-  <%= render 'shared/display_lots', lots: @unnaproved_lots %>
+    <%= render 'shared/display_lots', lots: @unnaproved_lots %>
+  <% end %>
 <% end %>
-<% if @lots.present? %>
-  <hr>
-  <%= render 'shared/display_lots', lots: @lots %>
+<div id="ongoing-lots">
+  <% if @ongoing_lots.present? %>
+    <hr>
+    <%= render 'shared/display_lots', lots: @ongoing_lots %>
+  <% else %>
+    <p>Não há lotes acontecendo no momento</p>
+  <% end %>
 </div>
-<% else %>
-  <p>Não há lotes disponíveis</p>
-<% end %>
+<div id="future-lots">
+  <% if @future_lots.present? %>
+    <hr>
+    <%= render 'shared/display_lots', lots: @future_lots %>
+  <% else %>
+    <p>Não há lotes futuros no momento</p>
+  <% end %>
+</div>
+<div id="closed-lots">
+  <% if @closed_lots.present? %>
+    <hr>
+    <%= render 'shared/display_lots', lots: @closed_lots %>
+  <% else %>
+    <p>Não há lotes fechados no momento</p>
+  <% end %>
+</div>
