@@ -12,7 +12,7 @@ describe 'Usuário visualiza itens' do
 
   it 'E não vê botão de cadastrar item' do
     User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-      sex:1, role: :user, cpf: '111.222.333.44')
+      sex:1, role: :user, cpf: '065.625.380-09')
     login_as(User.last)
     visit root_path
     click_on 'Itens'
@@ -23,7 +23,7 @@ describe 'Usuário visualiza itens' do
   it 'E vê todos os itens cadastrados' do
     # Arrange
     User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-                sex:1, role: :user, cpf: '111.222.333.44')
+                sex:1, role: :user, cpf: '065.625.380-09')
     login_as(User.last)
 
     image = fixture_file_upload(Rails.root.join('spec/support/images/iphonexs.png'), 'image/png')
@@ -53,7 +53,7 @@ describe 'Usuário visualiza itens' do
   it 'E os itens tem a descrição encurtada' do
     # Arrange
     User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-      sex:1, role: :user, cpf: '111.222.333.44')
+      sex:1, role: :user, cpf: '065.625.380-09')
     login_as(User.last)
 
     image = fixture_file_upload(Rails.root.join('spec/support/images/iphonexs.png'), 'image/png')
@@ -73,13 +73,13 @@ describe 'Usuário visualiza itens' do
 
   it 'E vê todos os items de um lote' do
     user_1 = User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-      sex:1, role: :user, cpf: '111.222.333.44')
+      sex:1, role: :user, cpf: '065.625.380-09')
     login_as(user_1)
 
     user_admin_1 = User.create!(name: 'Caio Willwohl',email: 'admin2@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.50')
+          sex:1, role: :admin, cpf: '621.830.060-99')
     user_admin_2 = User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.10')
+          sex:1, role: :admin, cpf: '259.857.290-44')
 
     Category.create!(name: 'Celulares')
     Category.create!(name: 'Cozinha')

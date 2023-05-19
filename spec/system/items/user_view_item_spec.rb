@@ -10,7 +10,7 @@ describe 'Usuário visualiza itens' do
 
   it 'E visualiza um item' do
     User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-      sex:1, role: :user, cpf: '111.222.333.44')
+      sex:1, role: :user, cpf: '065.625.380-09')
     login_as(User.last)
 
     Category.create!(name: 'Celulares')
@@ -60,7 +60,7 @@ describe 'Usuário visualiza itens' do
 
   it 'E o item não está em um lote' do
     user_admin = User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-      sex:1, role: :user, cpf: '111.222.333.44')
+      sex:1, role: :user, cpf: '065.625.380-09')
     login_as(user_admin)
 
     Category.create!(name: 'Celulares')
@@ -93,13 +93,13 @@ describe 'Usuário visualiza itens' do
 
   it 'E o item está em um lote, mas o lote ainda não foi disponibilizado para os usuários' do
     user_1 = User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-      sex:1, role: :user, cpf: '111.222.333.44')
+      sex:1, role: :user, cpf: '065.625.380-09')
     login_as(user_1)
 
     user_admin_1 = User.create!(name: 'Caio Willwohl',email: 'admin2@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.50')
+          sex:1, role: :admin, cpf: '621.830.060-99')
     user_admin_2 = User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.10')
+          sex:1, role: :admin, cpf: '259.857.290-44')
 
     Category.create!(name: 'Celulares')
     Category.create!(name: 'Cozinha')
@@ -137,13 +137,13 @@ describe 'Usuário visualiza itens' do
 
   it 'E o item está em um lote, mas não há lances até o momento' do
     user_1 = User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-      sex:1, role: :user, cpf: '111.222.333.44')
+      sex:1, role: :user, cpf: '065.625.380-09')
     login_as(user_1)
 
     user_admin_1 = User.create!(name: 'Caio Willwohl',email: 'admin2@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.50')
+          sex:1, role: :admin, cpf: '621.830.060-99')
     user_admin_2 = User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.10')
+          sex:1, role: :admin, cpf: '259.857.290-44')
 
     Category.create!(name: 'Celulares')
     Category.create!(name: 'Cozinha')

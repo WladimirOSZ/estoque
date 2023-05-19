@@ -4,16 +4,16 @@ include ActiveSupport::Testing::TimeHelpers
 describe 'Usuário dá um lance' do
   it 'E vê o maior lance' do
     user_1 = User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-                          sex:1, role: :user, cpf: '111.222.333.44')
+                          sex:1, role: :user, cpf: '065.625.380-09')
     login_as(user_1)
 
     user_2 = User.create!(name: 'Joãozinho da Silva',email: 'segundouser@gmail.com', password: 'password',
-      sex:1, role: :user, cpf: '222.111.333.44')
+      sex:1, role: :user, cpf: '728.773.530-01')
 
     admin_1 = User.create!(name: 'Caio Willwohl',email: 'admin2@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.50')
+          sex:1, role: :admin, cpf: '621.830.060-99')
     admin_2 = User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.10')
+          sex:1, role: :admin, cpf: '259.857.290-44')
 
     Category.create!(name: 'Celulares')
     Category.create!(name: 'Cozinha')
@@ -57,13 +57,13 @@ describe 'Usuário dá um lance' do
 
   it 'E não há lances' do
     user_1 = User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-      sex:1, role: :user, cpf: '111.222.333.44')
+      sex:1, role: :user, cpf: '065.625.380-09')
     login_as(user_1)
 
     admin_1 = User.create!(name: 'Caio Willwohl',email: 'admin2@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.50')
+          sex:1, role: :admin, cpf: '621.830.060-99')
     admin_2 = User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.10')
+          sex:1, role: :admin, cpf: '259.857.290-44')
 
     Category.create!(name: 'Celulares')
     Category.create!(name: 'Cozinha')
@@ -103,13 +103,13 @@ describe 'Usuário dá um lance' do
 
   it 'E faz um lance menor do que o valor mínimo do lote' do
     user_1 = User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-      sex:1, role: :user, cpf: '111.222.333.44')
+      sex:1, role: :user, cpf: '065.625.380-09')
     login_as(user_1)
 
     admin_1 = User.create!(name: 'Caio Willwohl',email: 'admin2@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.50')
+          sex:1, role: :admin, cpf: '621.830.060-99')
     admin_2 = User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.10')
+          sex:1, role: :admin, cpf: '259.857.290-44')
 
     Category.create!(name: 'Celulares')
     Category.create!(name: 'Cozinha')
@@ -154,16 +154,16 @@ describe 'Usuário dá um lance' do
 
   it 'E faz um lance menor do que o valor do último lance mais as diferença mínima' do
     user_1 = User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-      sex:1, role: :user, cpf: '111.222.333.44')
+      sex:1, role: :user, cpf: '065.625.380-09')
     login_as(user_1)
 
     user_2 = User.create!(name: 'Joãozinho da Silva',email: 'segundouser@gmail.com', password: 'password',
-      sex:1, role: :user, cpf: '222.111.333.44')
+      sex:1, role: :user, cpf: '728.773.530-01')
 
     admin_1 = User.create!(name: 'Caio Willwohl',email: 'admin2@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.50')
+          sex:1, role: :admin, cpf: '621.830.060-99')
     admin_2 = User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.10')
+          sex:1, role: :admin, cpf: '259.857.290-44')
 
     Category.create!(name: 'Celulares')
     Category.create!(name: 'Cozinha')
@@ -210,13 +210,13 @@ describe 'Usuário dá um lance' do
 
   it 'E faz um lance válido' do
     user_1 = User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-      sex:1, role: :user, cpf: '111.222.333.44')
+      sex:1, role: :user, cpf: '065.625.380-09')
     login_as(user_1)
 
     admin_1 = User.create!(name: 'Caio Willwohl',email: 'admin2@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.50')
+          sex:1, role: :admin, cpf: '621.830.060-99')
     admin_2 = User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.10')
+          sex:1, role: :admin, cpf: '259.857.290-44')
 
     Category.create!(name: 'Celulares')
     Category.create!(name: 'Cozinha')
@@ -255,13 +255,13 @@ describe 'Usuário dá um lance' do
 
   it 'E faz um lance após o fechamento do lote' do
     user_1 = User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-      sex:1, role: :user, cpf: '111.222.333.44')
+      sex:1, role: :user, cpf: '065.625.380-09')
     login_as(user_1)
 
     admin_1 = User.create!(name: 'Caio Willwohl',email: 'admin2@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.50')
+          sex:1, role: :admin, cpf: '621.830.060-99')
     admin_2 = User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.10')
+          sex:1, role: :admin, cpf: '259.857.290-44')
 
     Category.create!(name: 'Celulares')
     Category.create!(name: 'Cozinha')

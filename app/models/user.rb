@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   validates :name, presence: true, length: { minimum: 3 }
   validates :cpf, presence: true, uniqueness: true, length: { is: 11 }
+
+  validates :cpf, cpf: { message: 'Sua mensagem de validação' }
   
 
   # Include default devise modules. Others available are:

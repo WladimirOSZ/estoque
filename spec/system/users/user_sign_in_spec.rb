@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Usuário faz login' do
     it 'com email e senha válidos' do
       User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', 
-                  password: 'password',sex:1, role: :user, cpf: '111.222.333.44')
+                  password: 'password',sex:1, role: :user, cpf: '065.625.380-09')
 
       visit root_path
       within 'nav' do
@@ -23,7 +23,7 @@ describe 'Usuário faz login' do
 
     it 'com email e senha inválidos' do
       User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', 
-                  password: 'password',sex:1, role: :user, cpf: '111.222.333.44')
+                  password: 'password',sex:1, role: :user, cpf: '065.625.380-09')
 
       
       visit root_path

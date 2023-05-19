@@ -4,7 +4,7 @@ describe 'Usuário cadastra categorias' do
   context 'mas não é administrador' do
     it 'E acessa diretamente a rota de criação' do
       user = User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-                      sex:1, role: :user, cpf: '111.222.333.44')
+                      sex:1, role: :user, cpf: '065.625.380-09')
 
       login_as(user)
 
@@ -16,7 +16,7 @@ describe 'Usuário cadastra categorias' do
 
     it 'E não vê o botão de cadastro na aba categorias' do
       user = User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-        sex:1, role: :user, cpf: '111.222.333.44')
+        sex:1, role: :user, cpf: '065.625.380-09')
 
       login_as(user)
 
@@ -31,7 +31,7 @@ describe 'Usuário cadastra categorias' do
   context 'é administrador' do
     it 'E cadastra uma categoria com campos validos' do
       user = User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-          sex:1, role: :admin, cpf: '111.222.333.44')
+          sex:1, role: :admin, cpf: '065.625.380-09')
       login_as(User.last)
 
       visit root_path
@@ -47,7 +47,7 @@ describe 'Usuário cadastra categorias' do
 
     it 'E cadastra uma categoria com campos em branco' do
       User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
-        sex:1, role: :admin, cpf: '491.150.798.55')
+        sex:1, role: :admin, cpf: '764.424.940-04')
       login_as(User.last)
       
       visit root_path
@@ -63,7 +63,7 @@ describe 'Usuário cadastra categorias' do
 
     it 'E cadastra uma categoria com nome repetido' do
       User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
-                  sex:1, role: :admin, cpf: '491.150.798.55')
+                  sex:1, role: :admin, cpf: '764.424.940-04')
       login_as(User.last)
       
       visit root_path

@@ -4,7 +4,7 @@ include ActiveSupport::Testing::TimeHelpers
 describe 'Administrador a seção de lotes finalizados' do
   it 'E não há lotes finalizados' do
     admin_1 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-                          sex:1, role: :admin, cpf: '491.150.798.55')
+                          sex:1, role: :admin, cpf: '764.424.940-04')
       
     login_as(admin_1)
 
@@ -18,12 +18,12 @@ describe 'Administrador a seção de lotes finalizados' do
 
   it 'E vê todos os lotes finalizados' do
     admin_1 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-      sex:1, role: :admin, cpf: '491.150.798.55')
+      sex:1, role: :admin, cpf: '764.424.940-04')
       
     login_as(admin_1)
 
     admin_2 = User.create!(name: 'Caio Willwohl',email: 'admin2@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.50')
+          sex:1, role: :admin, cpf: '621.830.060-99')
 
 
     first_lot = Lot.new(code: 'ABC123', start_date: '2023-05-01 15:30:00',
@@ -54,12 +54,12 @@ describe 'Administrador a seção de lotes finalizados' do
 
   it 'E reprova um lote' do
     admin_1 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-      sex:1, role: :admin, cpf: '491.150.798.55')
+      sex:1, role: :admin, cpf: '764.424.940-04')
       
     login_as(admin_1)
 
     admin_2 = User.create!(name: 'Caio Willwohl',email: 'admin2@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.50')
+          sex:1, role: :admin, cpf: '621.830.060-99')
 
 
     first_lot = Lot.new(code: 'ABC123', start_date: '2023-05-01 15:30:00',
@@ -113,15 +113,15 @@ describe 'Administrador a seção de lotes finalizados' do
 
   it 'E aprova um lote' do
     User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-                sex:1, role: :user, cpf: '111.222.333.44')
+                sex:1, role: :user, cpf: '065.625.380-09')
     
     admin_1 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-      sex:1, role: :admin, cpf: '491.150.798.55')
+      sex:1, role: :admin, cpf: '764.424.940-04')
       
     login_as(admin_1)
 
     admin_2 = User.create!(name: 'Caio Willwohl',email: 'admin2@leilaodogalpao.com.br', password: 'password',
-          sex:1, role: :admin, cpf: '491.150.798.50')
+          sex:1, role: :admin, cpf: '621.830.060-99')
 
 
     first_lot = Lot.new(code: 'ABC123', start_date: '2023-05-01 15:30:00',

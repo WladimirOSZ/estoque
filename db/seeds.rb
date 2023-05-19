@@ -10,17 +10,17 @@
 # admin
 
 first_admin = User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
-            sex:1, role: :admin, cpf: '491.150.798.55')
+            sex:1, role: :admin, cpf: '764.424.940-04')
 
 second_admin = User.create!(name: 'João Silva',email: 'joao_cc@leilaodogalpao.com.br', password: 'password',
-  sex:1, role: :admin, cpf: '111.222.333.44')
+  sex:1, role: :admin, cpf: '065.625.380-09')
 
 
 first_user = User.create!(name: 'José Silva',email: 'user@gmail.com', password: 'password',
-            sex:1, role: :user, cpf: '491.150.798.20')
+            sex:1, role: :user, cpf: '272.428.220-50')
 
 second_user = first_user = User.create!(name: 'José Silva',email: 'user_2@gmail.com', password: 'password',
-            sex:1, role: :user, cpf: '491.150.798.10')
+            sex:1, role: :user, cpf: '259.857.290-44')
 
 
 # categorySeeder

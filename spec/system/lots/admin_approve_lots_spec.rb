@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Administrador aprova lote' do
   it 'Falha por ser o criador do lote' do
     admin_1 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-      sex:1, role: :admin, cpf: '491.150.798.55')
+      sex:1, role: :admin, cpf: '764.424.940-04')
       
     login_as(admin_1)
 
@@ -35,12 +35,12 @@ describe 'Administrador aprova lote' do
 
   it 'Falha por que o lote não tem items' do
     admin_1 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-      sex:1, role: :admin, cpf: '491.150.798.55')
+      sex:1, role: :admin, cpf: '764.424.940-04')
       
     login_as(admin_1)
 
     admin_2 = User.create!(name: 'Caio Willwohl',email: 'admin2@leilaodogalpao.com.br', password: 'password',
-                  sex:1, role: :admin, cpf: '491.150.798.50')
+                  sex:1, role: :admin, cpf: '621.830.060-99')
 
     Lot.create!(code: 'ABC123', start_date: 1.days.from_now, end_date: 2.days.from_now,
                   minimum_value: 1000, minimum_difference: 100,
@@ -70,12 +70,12 @@ describe 'Administrador aprova lote' do
 
   it 'Com sucesso' do
     admin_1 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-      sex:1, role: :admin, cpf: '491.150.798.55')
+      sex:1, role: :admin, cpf: '764.424.940-04')
       
     login_as(admin_1)
 
     admin_2 = User.create!(name: 'Caio Willwohl',email: 'admin2@leilaodogalpao.com.br', password: 'password',
-                  sex:1, role: :admin, cpf: '491.150.798.50')
+                  sex:1, role: :admin, cpf: '621.830.060-99')
 
     Lot.create!(code: 'ABC123', start_date: 1.days.from_now, end_date: 2.days.from_now,
                   minimum_value: 1000, minimum_difference: 100,

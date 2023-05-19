@@ -4,7 +4,7 @@ describe 'Administrador cadastra items' do
 
   it 'E vê o botão de cadastrar item' do
     User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
-      sex:1, role: :admin, cpf: '491.150.798.55')
+      sex:1, role: :admin, cpf: '764.424.940-04')
     login_as(User.last)
 
     visit root_path
@@ -15,7 +15,7 @@ describe 'Administrador cadastra items' do
 
   it 'E vê o formulário de cadastro' do
     User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
-                sex:1, role: :admin, cpf: '491.150.798.55')
+                sex:1, role: :admin, cpf: '764.424.940-04')
     login_as(User.last)
 
     visit root_path
@@ -36,7 +36,7 @@ describe 'Administrador cadastra items' do
 
   it 'E preenche todos os campos' do
     User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
-                sex:1, role: :admin, cpf: '491.150.798.55')
+                sex:1, role: :admin, cpf: '764.424.940-04')
     
     Category.create!(name: 'Celulares')
     Category.create!(name: 'Eletrônicos')
