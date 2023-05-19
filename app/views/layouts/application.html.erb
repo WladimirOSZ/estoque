@@ -25,12 +25,13 @@
             <li class="nav-item">
               <%= link_to "Lotes", lots_path,  class:"nav-link" %>
             </li>
-            <li class="nav-item">
+            <li class="nav-item ">
               <%= link_to "Itens", items_path,  class:"nav-link" %>
             </li>
             <li class="nav-item me-auto">
-              <%= link_to "Categorias", categories_path,  class:"nav-link" %>
-            </li>
+                <%= link_to "Categorias", categories_path,  class:"nav-link" %>
+              </li>
+            
             <% if is_user? %>
               <li class="nav-item">
                 <a class="nav-link" href="#">Meus lances</a>
@@ -42,9 +43,10 @@
                 <%= link_to "Lotes vencidos", won_lots_lots_path, class:"nav-link" %>
               </li>
               <li class="nav-item ">
-                <%= link_to current_user.name, edit_user_registration_path, class:"nav-link" %>
+                <a class="nav-link"><%= current_user.name %></a>
               </li>
             <% elsif is_admin? %>
+              
               <li class="nav-item">
                 <%= link_to "Lotes finalizados", waiting_approval_lots_path,  class:"nav-link" %>
               </li>

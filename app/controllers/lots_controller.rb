@@ -73,13 +73,7 @@ class LotsController < ApplicationController
   def update_approval
     @lot = Lot.find(params[:id])
 
-    # wladimir, volta aqui. isso ta feio.
-    if params[:canceled] == "true"
-      @lot.status = :canceled
-    elsif params[:canceled] == "false"
-      @lot.status = :succeeded
-    end
-
+    @lot.status = params[:canceled] == "true" ? :canceled : :succeeded
 
     if @lot.valid? 
       Lot.transaction do
@@ -91,8 +85,6 @@ class LotsController < ApplicationController
         end
       end
     else
-      puts @lot.errors.full_messages
-
       redirect_to waiting_approval_lots_path, alert: 'Não foi possível atualizar o lote'
     end
   end

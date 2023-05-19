@@ -20,7 +20,7 @@ module BidsHelper
   end
 
   def user_has_a_bid_in_this_lot(lot)
-    lot.bids.where(user_id: current_user.id).present?
+    current_user.present? && lot.bids.where(user_id: current_user.id).present?
   end
 
   def current_user_bid(lot)

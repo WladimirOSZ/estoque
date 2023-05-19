@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # wladimir, volta aqui
   # adiciona os onlys
-  root "lots#lista_users_teste"
+  
+  root "lots#index"
   resources :items
   resources :users
   resources :categories
