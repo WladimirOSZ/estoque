@@ -1,0 +1,9 @@
+<h1>Lotes vencidos</h1>
+
+<% if @won_lots.present? %>
+  <hr>
+  <%= render 'shared/display_lots', lots: @won_lots %>
+</div>
+<% else %>
+  <p>Você não ganhou nenhum leilão. Caso tenha vencido, aguarde um administrador validar o lote para ele aparecer nesta tela. Este processo pode levar até 24 horas.</p>
+<% end %>

@@ -22,5 +22,11 @@ module LotsHelper
   def is_approved_status(lot)
     is_approved(lot) ? "Aprovado" : "Não aprovado"
   end
+
+  def user_is_lot_winner(lot)
+    if is_closed(lot) && lot.bids.present? && current_user.present? && lot.succeeded?
+      lot.bids.last.user == current_user
+    end
+  end
   
 end

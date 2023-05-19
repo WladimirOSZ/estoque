@@ -95,16 +95,13 @@ class LotsController < ApplicationController
   end
 
   def won_lots
-    # get the lots that the user won from the user.bids
-    lots_from_bids = current_user.bids.pluck(:lot_id).uniq
-    return render plain: lots_from_bids.inspect
-    # lots_from_bids.each do |lot_id|
-    #   lot = Lot.find(lot_id)
-    #   if lot.status == :succeeded
-    #     @lots = Lot.where(id: lots_from_bids)
-    #   end
-    # end
+    lots_bidded_from_this_user = current_user.bids.select(:lot_id).distinct
+    ended_lots = Lot.where(id: lots_bidded_from_this_user).where(status: :succeeded)
 
+    higghest_bids_from_user = current_user.bids.group(:lot_id).maximum(:value)
+
+    @won_lots = ended_lots.select { |lot| higghest_bids_from_user[lot.id] == lot.bids.last.value }
+    
   end
 
   private

@@ -85,7 +85,7 @@ describe 'Administrador cadastra items de um lote cancelado em outro lote' do
 
       ItemLot.create!(lot_id: first_lot.id, item_id: first_item.id)
 
-      Bid.create!(lot_id: first_lot.id, user_id: user_1.id, value: 2000)
+      # Bid.create!(lot_id: first_lot.id, user_id: user_1.id, value: 2000)
     end
 
     first_lot.update(status: :canceled)

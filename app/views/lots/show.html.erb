@@ -35,7 +35,7 @@
               </div>
             <% end %>
             <%= render 'shared/display_errors', model: @bid %>
-            <%= form_with model: [@lot, @lot.bids.build ] do |f| %>
+            <%= form_with model: [@lot, @lot.bids.build] do |f| %>
               <%= f.hidden_field :lot_id, value: @lot.id %>
               <%= f.label :value, "Digite seu lance:", class:"h5 ms-2" %>
               <div class="input-group mb-3">
@@ -44,6 +44,22 @@
                 <span class="input-group-text">,00</span>
               </div>
               <%= f.submit 'Dar lance', class: 'btn btn-success mb-3 w-100' %>
+            <% end %>
+          <% elsif is_closed(@lot) %>
+            <% if @lot.succeeded? %>
+              <div class="alert alert-success">
+                Lote finalizado com sucesso!
+              </div>
+              <% if user_is_lot_winner(@lot) %>
+                <div class="alert alert-success">
+                  Parabéns! Você é o vencedor deste lote!
+                </div>
+              <% end %>
+              <h5>Maior lance do lote: <%= higghest_bid_as_text_or_currency(@lot) %></h5>
+            <% else %>
+              <div class="alert alert-danger">
+                Lote cancelado por falta de lances.
+              </div>
             <% end %>
           <% end %>
         <% end %>

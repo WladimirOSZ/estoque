@@ -1,33 +1,44 @@
 <div class="row align-items-center">
-<% lots.each do |lot| %>
-  <div class="col-sm-12 col-md-4 col-lg-3">
-    <div class="card mb-3"  id="lot-<%= lot.code %>" >
-      <div class="card-header">Lote <%= lot.code %> - <%= is_approved_status(lot) %> </div>
-      <div class="card-body">
-        <h5 class="card-title"><%= current_time_status(lot) %></h5>
-        <p class="card-text">
-          Valor inicial do lote: <%= number_to_currency(lot.minimum_value) %><br>
-          Diferença mínima entre lances: <%= number_to_currency(lot.minimum_difference) %><br>
-          <% if is_open(lot) %>
-            Lance mais alto do lote até o momento: <%= higghest_bid_as_text_or_currency(lot) %> <br>
-            Iniciou há: <%= distance_of_time_in_words_to_now(lot.start_date) %><br>
-            Finaliza em: <%= distance_of_time_in_words_to_now(lot.end_date) %><br>
-          <% elsif is_waiting(lot) %>
-            Inicia em: <%= distance_of_time_in_words_to_now(lot.start_date) %><br>
-            Finaliza após: <%= distance_of_time_in_words_to_now(lot.end_date) %><br>
-          <% else %>
-            Finalizou há: <%= distance_of_time_in_words_to_now(lot.end_date) %><br>
-            Lance mais alto do lote até o momento: <%= higghest_bid_as_text_or_currency(lot) %> <br>
+  <% lots.each do |lot| %>
+    <div class="col-sm-12 col-md-4 col-lg-3">
+      <div class="card mb-3"  id="lot-<%= lot.code %>" >
+        <div class="card-header <%= user_is_lot_winner(lot) ? 'bg-success text-white fw-bold' : ''  %> ">Lote <%= lot.code %>
+          <% if is_admin? %>
+            - <%= is_approved_status(lot) %>
           <% end %>
-        </p>
-      </div>
-      <div class="card-footer">
-        <%= link_to 'Ver lote', lot, class: 'btn btn-primary' %>
-        <% if is_waiting(lot) && is_admin? %>
-          <%= link_to 'Adicionar items', edit_lot_path(lot), class: 'btn btn-primary' %>
-        <% end %>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= current_time_status(lot) %></h5>
+          <p class="card-text">
+            <% if is_open(lot) %>
+              Valor inicial do lote: <%= number_to_currency(lot.minimum_value) %><br>
+              Diferença mínima entre lances: <%= number_to_currency(lot.minimum_difference) %><br>
+              Lance mais alto do lote até o momento: <%= higghest_bid_as_text_or_currency(lot) %> <br>
+              Iniciou há: <%= distance_of_time_in_words_to_now(lot.start_date) %><br>
+              Finaliza em: <%= distance_of_time_in_words_to_now(lot.end_date) %><br>
+            <% elsif is_waiting(lot) %>
+              Valor inicial do lote: <%= number_to_currency(lot.minimum_value) %><br>
+              Diferença mínima entre lances: <%= number_to_currency(lot.minimum_difference) %><br>
+              Inicia em: <%= distance_of_time_in_words_to_now(lot.start_date) %><br>
+              Finaliza após: <%= distance_of_time_in_words_to_now(lot.end_date) %><br>
+            <% else %>
+              Finalizou há: <%= distance_of_time_in_words_to_now(lot.end_date) %><br>
+              Lance mais alto do lote até o momento: <%= higghest_bid_as_text_or_currency(lot) %> <br>
+              <% if user_is_lot_winner(lot) %>
+                <div class="alert alert-success">
+                  Parabéns! Você é o vencedor deste lote!
+                </div>
+              <% end %>
+            <% end %>
+          </p>
+        </div>
+        <div class="card-footer">
+          <%= link_to 'Ver lote', lot, class: 'btn btn-primary' %>
+          <% if is_waiting(lot) && is_admin? %>
+            <%= link_to 'Adicionar items', edit_lot_path(lot), class: 'btn btn-primary' %>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
 </div>

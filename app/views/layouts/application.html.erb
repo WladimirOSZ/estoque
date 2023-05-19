@@ -38,11 +38,11 @@
               <li class="nav-item ">
                 <a class="nav-link" href="#">Lotes favoritos</a>
               </li>
+              <li class="nav-item">
+                <%= link_to "Lotes vencidos", won_lots_lots_path, class:"nav-link" %>
+              </li>
               <li class="nav-item ">
                 <%= link_to current_user.name, edit_user_registration_path, class:"nav-link" %>
-              </li>
-              <li class="nav-item">
-                <%= button_to "Sair", destroy_user_session_path, method: :delete, class:"nav-link" %>
               </li>
             <% elsif is_admin? %>
               <li class="nav-item">
@@ -50,9 +50,6 @@
               </li>
             <% end %>
             <% if current_user.present? %>
-              <li class="nav-item">
-                <%= link_to "Lotes vencidos", won_lots_lots_path, class:"nav-link" %>
-              </li>
               <li class="nav-item">
                 <%= button_to "Sair", destroy_user_session_path, method: :delete, class:"nav-link" %>
               </li>
