@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 describe 'Usuário faz cadastro' do
-  
   it 'e vê o formulário de cadastro' do
-
     visit root_path
     within 'nav' do
       click_on 'Entrar'
@@ -19,5 +17,4 @@ describe 'Usuário faz cadastro' do
     # expect(page).to have_content('CPF')
     # expect(page).to have_content('Data de Nascimento')
   end
-  
 end

@@ -11,7 +11,6 @@ class Item < ApplicationRecord
   validates :weight, :width, :height, :depth, numericality: { greater_than: 0 }
   validates :description, length: { minimum: 100 }
 
-
   accepts_nested_attributes_for :categories
 
   before_validation :generate_code
@@ -22,8 +21,8 @@ class Item < ApplicationRecord
   end
 
   private
+
   def generate_code
     self.code = SecureRandom.alphanumeric(10)
   end
-
 end

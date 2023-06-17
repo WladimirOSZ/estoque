@@ -44,21 +44,21 @@ class CpfValidator < ActiveModel::EachValidator
     multiplied = first_digits.map.with_index do |number, index|
       number * (10 - index)
     end
-  
+
     mod = multiplied.reduce(:+) % 11
-  
+
     fst_verifier_digit = 11 - mod > 9 ? 0 : 11 - mod
     fst_verifier_digit == cpf_numbers[9]
   end
-  
+
   def second_digit_valid?(cpf_numbers)
     second_digits = cpf_numbers[0..9]
     multiplied = second_digits.map.with_index do |number, index|
       number * (11 - index)
     end
-  
+
     mod = multiplied.reduce(:+) % 11
-  
+
     snd_verifier_digit = 11 - mod > 9 ? 0 : 11 - mod
     snd_verifier_digit == cpf_numbers[10]
   end

@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_action :authenticate_admin!, only: [:new, :create]
+  before_action :authenticate_admin!, only: %i[new create]
 
   def index
     @categories = Category.all
@@ -21,6 +21,7 @@ class CategoriesController < ApplicationController
   end
 
   private
+
   def category_params
     params.require(:category).permit(:name)
   end

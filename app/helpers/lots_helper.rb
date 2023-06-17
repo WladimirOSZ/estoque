@@ -6,11 +6,15 @@ module LotsHelper
   def is_waiting(lot)
     Time.now < lot.start_date
   end
-  
+
   def current_time_status(lot)
-    is_open(lot) ? "Aberto"  : is_waiting(lot) ? "Aguardando" : "Fechado"
+    if is_open(lot)
+      'Aberto'
+    else
+      is_waiting(lot) ? 'Aguardando' : 'Fechado'
+    end
   end
-  
+
   def is_closed(lot)
     !is_open(lot)
   end
@@ -20,13 +24,12 @@ module LotsHelper
   end
 
   def is_approved_status(lot)
-    is_approved(lot) ? "Aprovado" : "Não aprovado"
+    is_approved(lot) ? 'Aprovado' : 'Não aprovado'
   end
 
   def user_is_lot_winner(lot)
-    if is_closed(lot) && lot.bids.present? && current_user.present? && lot.succeeded?
-      lot.bids.last.user == current_user
-    end
+    return unless is_closed(lot) && lot.bids.present? && current_user.present? && lot.succeeded?
+
+    lot.bids.last.user == current_user
   end
-  
 end

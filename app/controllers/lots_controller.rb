@@ -1,19 +1,16 @@
 class LotsController < ApplicationController
-  before_action :authenticate_admin!, only: [:new, :create, :edit, :update, :waiting_approval, :update_approval]
+  before_action :authenticate_admin!, only: %i[new create edit update waiting_approval update_approval]
   before_action :authenticate_user!, only: [:won_lots]
 
   def index
-    if current_user.present? && current_user.admin?
-      @unnaproved_lots = Lot.unnaproved
-    end
+    @unnaproved_lots = Lot.unnaproved if current_user.present? && current_user.admin?
     @ongoing_lots = Lot.ongoing
     @future_lots = Lot.future
     @closed_lots = Lot.closed
-
   end
 
   def lista_users_teste
-    @users = User.all 
+    @users = User.all
   end
 
   def new
@@ -24,7 +21,7 @@ class LotsController < ApplicationController
     @lot = Lot.new(create_lot_params)
     @lot.created_by = current_user
     if @lot.save
-      redirect_to @lot, notice: "Lote criado com sucesso"
+      redirect_to @lot, notice: 'Lote criado com sucesso'
     else
       render 'new'
     end
@@ -38,22 +35,19 @@ class LotsController < ApplicationController
 
   def edit
     @lot = Lot.find(params[:id])
-    if @lot.approved_by_id.present?
-      return redirect_to @lot, alert: 'Não é possível editar um lote aprovado'
-    end
+    return redirect_to @lot, alert: 'Não é possível editar um lote aprovado' if @lot.approved_by_id.present?
+
     @items = Item.avaliable
   end
 
   def update
     @lot = Lot.find(params[:id])
-    if @lot.approved_by_id.present?
-      return redirect_to @lot, alert: 'Não é possível editar um lote aprovado'
-    end
+    return redirect_to @lot, alert: 'Não é possível editar um lote aprovado' if @lot.approved_by_id.present?
 
-    @lot.approved_by = current_user 
+    @lot.approved_by = current_user
     modified_params = update_lot_params
 
-    modified_params[:approved_by_id] =  modified_params[:approved_by_id] == "1" ? current_user.id : nil 
+    modified_params[:approved_by_id] = modified_params[:approved_by_id] == '1' ? current_user.id : nil
 
     if @lot.update(modified_params)
       redirect_to @lot, notice: 'Lote atualizado com sucesso!'
@@ -65,7 +59,7 @@ class LotsController < ApplicationController
   end
 
   def waiting_approval
-    @lots = Lot.where("end_date < ?", Time.now).where(status: :ongoing)
+    @lots = Lot.where('end_date < ?', Time.now).where(status: :ongoing)
     @lots_succeded = Lot.succeeded
     @lots_canceled = Lot.canceled
   end
@@ -73,9 +67,9 @@ class LotsController < ApplicationController
   def update_approval
     @lot = Lot.find(params[:id])
 
-    @lot.status = params[:canceled] == "true" ? :canceled : :succeeded
+    @lot.status = params[:canceled] == 'true' ? :canceled : :succeeded
 
-    if @lot.valid? 
+    if @lot.valid?
       Lot.transaction do
         if @lot.save
           @lot.item_lot.update_all(canceled: params[:canceled])
@@ -96,15 +90,16 @@ class LotsController < ApplicationController
     higghest_bids_from_user = current_user.bids.group(:lot_id).maximum(:value)
 
     @won_lots = ended_lots.select { |lot| higghest_bids_from_user[lot.id] == lot.bids.last.value }
-    
   end
 
   private
+
   def create_lot_params
     params.require(:lot).permit(:code, :start_date, :end_date, :minimum_value, :minimum_difference)
   end
 
   def update_lot_params
-    params.require(:lot).permit(:approved_by_id, :start_date, :end_date, :minimum_value, :minimum_difference,:item_ids => [])
+    params.require(:lot).permit(:approved_by_id, :start_date, :end_date, :minimum_value, :minimum_difference,
+                                item_ids: [])
   end
 end

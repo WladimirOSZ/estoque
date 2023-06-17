@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe 'Usuário vê categorias' do
-
   it 'E não existem categorias cadastradas' do
     visit root_path
     click_on 'Categorias'

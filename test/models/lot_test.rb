@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 class LotTest < ActiveSupport::TestCase
   # test "the truth" do

@@ -4,14 +4,13 @@ module BidsHelper
   end
 
   def higghest_bid_as_text_or_currency(lot)
-    higghest_bid(lot) ? number_to_currency(higghest_bid(lot)) : "Não há lances"
+    higghest_bid(lot) ? number_to_currency(higghest_bid(lot)) : 'Não há lances'
   end
 
   def minimum_bid(lot)
     higghest_bid = higghest_bid(lot)
-    if higghest_bid.present?
-      return higghest_bid + lot.minimum_difference + 1
-    end
+    return higghest_bid + lot.minimum_difference + 1 if higghest_bid.present?
+
     lot.minimum_value
   end
 

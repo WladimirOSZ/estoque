@@ -9,10 +9,8 @@ class ItemLot < ApplicationRecord
   validate :item_cant_be_in_an_active_lot
 
   def item_cant_be_in_an_active_lot
-    if item_id.present? && ItemLot.where(item_id: item_id).avaliable.any?
-      errors.add(:item_id, "não pode estar em outro lote ativo")
-    end
-  end
+    return unless item_id.present? && ItemLot.where(item_id: item_id).avaliable.any?
 
-  
+    errors.add(:item_id, 'não pode estar em outro lote ativo')
+  end
 end

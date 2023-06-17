@@ -3,20 +3,20 @@ require 'rails_helper'
 describe 'Usuário cadastra categorias' do
   context 'mas não é administrador' do
     it 'E acessa diretamente a rota de criação' do
-      user = User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-                      sex:1, role: :user, cpf: '065.625.380-09')
+      user = User.create!(name: 'Wladimir Oliveira', email: 'user@gmail.com', password: 'password',
+                          sex: 1, role: :user, cpf: '065.625.380-09')
 
       login_as(user)
 
       visit new_category_path
-      
+
       expect(current_path).to eq root_path
       expect(page).to have_content('Você não tem permissão para essa ação')
     end
 
     it 'E não vê o botão de cadastro na aba categorias' do
-      user = User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-        sex:1, role: :user, cpf: '065.625.380-09')
+      user = User.create!(name: 'Wladimir Oliveira', email: 'user@gmail.com', password: 'password',
+                          sex: 1, role: :user, cpf: '065.625.380-09')
 
       login_as(user)
 
@@ -25,13 +25,12 @@ describe 'Usuário cadastra categorias' do
 
       expect(page).not_to have_link('Cadastrar Categoria')
     end
-
   end
-  
+
   context 'é administrador' do
     it 'E cadastra uma categoria com campos validos' do
-      user = User.create!(name: 'Wladimir Oliveira',email: 'user@gmail.com', password: 'password',
-          sex:1, role: :admin, cpf: '065.625.380-09')
+      user = User.create!(name: 'Wladimir Oliveira', email: 'user@gmail.com', password: 'password',
+                          sex: 1, role: :admin, cpf: '065.625.380-09')
       login_as(User.last)
 
       visit root_path
@@ -46,10 +45,10 @@ describe 'Usuário cadastra categorias' do
     end
 
     it 'E cadastra uma categoria com campos em branco' do
-      User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
-        sex:1, role: :admin, cpf: '764.424.940-04')
+      User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
+                   sex: 1, role: :admin, cpf: '764.424.940-04')
       login_as(User.last)
-      
+
       visit root_path
       click_on 'Categorias'
       click_on 'Cadastrar categoria'
@@ -62,10 +61,10 @@ describe 'Usuário cadastra categorias' do
     end
 
     it 'E cadastra uma categoria com nome repetido' do
-      User.create!(name: 'Wladimir Souza',email: 'admin@leilaodogalpao.com.br', password: 'password',
-                  sex:1, role: :admin, cpf: '764.424.940-04')
+      User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
+                   sex: 1, role: :admin, cpf: '764.424.940-04')
       login_as(User.last)
-      
+
       visit root_path
       click_on 'Categorias'
       click_on 'Cadastrar categoria'
@@ -81,7 +80,6 @@ describe 'Usuário cadastra categorias' do
       # erro aqui, está redirecionando para categories_path
       # expect(current_path).to eq new_category_path
       expect(page).to have_content('Nome já está em uso')
-
-      end
+    end
   end
 end

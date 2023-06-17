@@ -5,19 +5,17 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # wladimir, volta aqui
   # adiciona os onlys
-  
-  root "lots#index"
+
+  root 'lots#index'
   resources :items
   resources :users
   resources :categories
-  
-  resources :lots do 
+
+  resources :lots do
     get 'waiting_approval', on: :collection
     get 'won_lots', on: :collection
     post 'update_approval', on: :member
     resources :items_lots
     resources :bids
   end
-
-  
 end

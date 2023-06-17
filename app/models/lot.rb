@@ -6,7 +6,7 @@ class Lot < ApplicationRecord
   has_many :bids
 
   enum status: { canceled: 0, succeeded: 1, ongoing: 2 }
-  
+
   accepts_nested_attributes_for :items
 
   validates :code, :start_date, :end_date, :minimum_value, :minimum_difference, presence: true
@@ -22,46 +22,45 @@ class Lot < ApplicationRecord
   validate :created_by_cant_be_the_same_as_approved_by
 
   def end_date_cannot_be_in_the_past
-    if end_date.present? && end_date < Time.now
-      errors.add(:end_date, "can't be in the past")
-    end
+    return unless end_date.present? && end_date < Time.now
+
+    errors.add(:end_date, 'não pode estar no passado')
   end
 
   def code_needs_three_letters_and_six_characters
-    if code.present? && code.length != 6
-      errors.add(:code, " precisa de 6 caracteres no total")
-      if code.scan(/[A-Z]/i).count != 3
-        errors.add(:code, " precisa de 3 letras")
-      end
-    end
+    errors.add(:code, 'precisa de 6 caracteres no total') if code.present? && code.length != 6
+    errors.add(:code, 'precisa de 3 letras') if code.present? && code.scan(/[A-Z]/i).count != 3
+    return unless code.present? && code.scan(/\d/).count != 3
+
+    errors.add(:code, 'precisa de 3 números')
   end
 
   def created_by_needs_to_be_admin
-    if created_by_id.present? && User.find(created_by_id).role != 'admin'
-      errors.add(:created_by_id, "precisa ser um administrador")
-    end
+    return unless created_by_id.present? && User.find(created_by_id).role != 'admin'
+
+    errors.add(:created_by_id, 'precisa ser um administrador')
   end
 
   def approved_by_needs_to_be_admin
-    if approved_by_id.present? && User.find(approved_by_id).role != 'admin'
-      errors.add(:approved_by_id, "precisa ser um administrador")
-    end
+    return unless approved_by_id.present? && User.find(approved_by_id).role != 'admin'
+
+    errors.add(:approved_by_id, 'precisa ser um administrador')
   end
 
   def approved_by_cant_be_set_if_the_lot_has_no_items
-    if approved_by_id.present? && items.empty?
-      errors.add(:approved_by_id, "não pode ser definido em um lote sem items")
-    end
+    return unless approved_by_id.present? && items.empty?
+
+    errors.add(:approved_by_id, 'não pode ser definido em um lote sem items')
   end
 
   def created_by_cant_be_the_same_as_approved_by
-    if created_by_id.present? && approved_by_id.present? && created_by_id == approved_by_id
-      errors.add(:approved_by_id, "não pode ser o mesmo que o criador do lote")
-    end
+    return unless created_by_id.present? && approved_by_id.present? && created_by_id == approved_by_id
+
+    errors.add(:approved_by_id, 'não pode ser o mesmo que o criador do lote')
   end
 
   def self.unnaproved
-    Lot.where("approved_by_id IS NULL")
+    Lot.where('approved_by_id IS NULL')
   end
 
   def self.approved
@@ -74,12 +73,10 @@ class Lot < ApplicationRecord
   end
 
   def self.future
-    Lot.where("start_date > ?", Time.current).where.not(approved_by_id: nil)
+    Lot.where('start_date > ?', Time.current).where.not(approved_by_id: nil)
   end
 
-  
   def self.closed
-    Lot.where("end_date < ?", Time.current)
+    Lot.where('end_date < ?', Time.current)
   end
-  
 end

@@ -5,7 +5,6 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find params[:id]
-    # return render plain: @item.lots.succeeded.first.inspect
   end
 
   def new
@@ -26,7 +25,8 @@ class ItemsController < ApplicationController
   end
 
   private
+
   def item_params
-    params.require(:item).permit(:name, :description, :photo, :weight, :width, :height, :depth, :category_ids => [])
+    params.require(:item).permit(:name, :description, :photo, :weight, :width, :height, :depth, category_ids: [])
   end
 end

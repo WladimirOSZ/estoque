@@ -5,7 +5,7 @@ class BidsController < ApplicationController
     @bid = Bid.new bid_params
     @bid.user = current_user
     @lot = Lot.find(params[:bid][:lot_id])
-    
+
     if @bid.save
       redirect_to @lot, notice: 'Lance cadastrado com sucesso!'
     else
@@ -15,6 +15,7 @@ class BidsController < ApplicationController
   end
 
   private
+
   def bid_params
     params.require(:bid).permit(:value, :lot_id)
   end
