@@ -32,7 +32,7 @@ describe 'Usuário visualiza itens' do
                                description: 'O iPhone XS é um smartphone da Apple lançado em setembro de 2018. Equipado com um processador A12 Bionic, o iPhone XS oferece desempenho poderoso e eficiência energética. Possui uma tela OLED Super Retina de 5,8 polegadas, que proporciona cores vibrantes e pretos profundos, além de suporte ao HDR10 e Dolby Vision.',
                                photo: image, weight: 1, width: 10, height: 10, depth: 10, user_id: User.last.id)
 
-    image = fixture_file_upload(Rails.root.join('spec/support/images/s20.jpg'), 'image/jpg')
+    image = fixture_file_upload(Rails.root.join('spec/support/images/s20.jpg'), 'imagejpeg')
     allow(SecureRandom).to receive(:alphanumeric).and_return('99999CAFES')
     item_samsung = Item.create!(name: 'Samsung Galaxy S20',
                                 description: 'O Samsung Galaxy S20 é um smartphone Android com características inovadoras que o tornam uma excelente opção para qualquer tipo de utilização. A tela de 6.2 polegadas coloca esse Samsung no topo de sua categoria. A resolução também é alta: 3200x1440 pixel. As funcionalidades oferecidas pelo Samsung Galaxy S20 são muitas e top de linha. Começando pelo LTE 5G que permite a transferência de dados e excelente navegação na internet.',
@@ -92,7 +92,7 @@ describe 'Usuário visualiza itens' do
                                photo: image,
                                weight: 300, width: 10, height: 10, depth: 10, user_id: User.last.id)
 
-    image = fixture_file_upload(Rails.root.join('spec/support/images/s20.jpg'), 'image/jpg')
+    image = fixture_file_upload(Rails.root.join('spec/support/images/s20.jpg'), 'imagejpeg')
 
     allow(SecureRandom).to receive(:alphanumeric).and_return('99999CAFES')
     item_samsung = Item.create!(name: 'Samsung Galaxy S20',

@@ -65,7 +65,7 @@ describe 'Administrador aprova lote' do
     end
 
     expect(page).to have_content('Não foi possível atualizar o lote')
-    expect(page).to have_content('Aprovado por não pode ser definido em um lote sem items')
+    expect(page).to have_content('Aprovado por não pode ser definido em um lote sem itens')
   end
 
   it 'Com sucesso' do

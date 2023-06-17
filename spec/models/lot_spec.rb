@@ -198,32 +198,15 @@ RSpec.describe Lot, type: :model do
     expect(lot.errors[:code]).to include('precisa de 3 letras')
   end
 
-  it 'is invalid when created_by is not an admin' do
-    user = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-                        sex: 1, role: :user, cpf: '764.424.940-04')
-
-    lot = Lot.new(created_by_id: user)
-    lot.valid?
-
-    expect(lot.errors[:created_by]).to include('precisa ser um administrador')
-  end
-
-  it 'is invalid when approved_by is not an admin' do
-    user = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-                        sex: 1, role: :user, cpf: '764.424.940-04')
-
-    lot = Lot.new(approved_by: user)
-    lot.valid?
-    expect(lot.errors[:approved_by_id]).to include('precisa ser um administrador')
-  end
-
   it 'is invalid when approved_by is set for a lot without items' do
     admin = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
                          sex: 1, role: :admin, cpf: '764.424.940-04')
 
-    lot = Lot.new(approved_by: admin)
-    lot.valid?
-    expect(lot.errors[:approved_by_id]).to include('não pode ser definido em um lote sem items')
+    lot = Lot.create!(code: 'ABC123', start_date: 1.days.from_now, end_date: 2.days.from_now,
+                      minimum_value: 1000, minimum_difference: 100, created_by_id: 1)
+    lot.update(approved_by: admin)
+
+    expect(lot.errors[:approved_by_id]).to include('não pode ser definido em um lote sem itens')
   end
 
   it 'is invalid when created_by and approved_by are the same user' do

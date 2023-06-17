@@ -28,9 +28,9 @@ describe 'Usuário visualiza leilão que ganhou' do
 
     first_lot = Lot.new(code: 'ABC123', start_date: '2023-05-01 15:30:00',
                         minimum_value: 1000, minimum_difference: 100,
-                        created_by_id: admin_1.id, approved_by_id: admin_2.id)
+                        created_by_id: admin_1.id)
 
-    travel_to Time.zone.local(2023, 0o5, 18, 0o1, 15, 0o0) do
+    travel_to Time.zone.local(2023, 5, 18, 1, 15, 0) do
       first_lot.end_date = 10.seconds.from_now
       first_lot.save!
 
@@ -42,11 +42,13 @@ describe 'Usuário visualiza leilão que ganhou' do
                                 weight: 300, width: 10, height: 10, depth: 10, user_id: User.last.id)
 
       ItemLot.create!(lot_id: first_lot.id, item_id: first_item.id)
+      first_lot.reload
+
+      first_lot.update(approved_by_id: admin_2.id)
 
       Bid.create!(lot_id: first_lot.id, user_id: user_1.id, value: 2000)
     end
-
-    first_lot.update(status: :succeeded)
+    first_lot.update!(status: :succeeded)
 
     visit root_path
     within('nav') do

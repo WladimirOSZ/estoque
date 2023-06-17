@@ -54,21 +54,21 @@ fifith_lot = Lot.create!(code: 'ZZZ111', start_date: '2021-05-01 10:15:00', end_
 
 # Carregando imagens
 caneca_botafogo_image = { io: File.open(Rails.root.join('db/seeds_images/caneca-botafogo.jpg')),
-                          filename: 'caneca-botafogo.jpg', content_type: 'image/jpg' }
+                          filename: 'caneca-botafogo.jpg', content_type: 'imagejpeg' }
 caneca_vasco_image = { io: File.open(Rails.root.join('db/seeds_images/caneca-vasco.png')),
-                       filename: 'caneca-vasco.png', content_type: 'image/jpg' }
+                       filename: 'caneca-vasco.png', content_type: 'imagejpeg' }
 iphone_image = { io: File.open(Rails.root.join('db/seeds_images/iphonexs.png')), filename: 'iphonexs.png',
-                 content_type: 'image/jpg' }
+                 content_type: 'imagejpeg' }
 s20_image = { io: File.open(Rails.root.join('db/seeds_images/s20.jpg')), filename: 's20.jpg',
-              content_type: 'image/jpg' }
+              content_type: 'imagejpeg' }
 tvsamsung_image = { io: File.open(Rails.root.join('db/seeds_images/tvsamsung.jpg')), filename: 'tvsamsung.jpg',
-                    content_type: 'image/jpg' }
+                    content_type: 'imagejpeg' }
 motoyamaha_image = { io: File.open(Rails.root.join('db/seeds_images/moto-leilao.png')), filename: 'moto-leilao.png',
                      content_type: 'image/png' }
 gol_gw = { io: File.open(Rails.root.join('db/seeds_images/gol-gts.jpg')), filename: 'gol-gts.jpg',
-           content_type: 'image/jpg' }
+           content_type: 'imagejpeg' }
 gol_gw2 = { io: File.open(Rails.root.join('db/seeds_images/gol-gts.jpg')), filename: 'gol-gts.jpg',
-            content_type: 'image/jpg' }
+            content_type: 'imagejpeg' }
 
 # Criando itens
 first_item = Item.create!(
