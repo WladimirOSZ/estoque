@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Lot < ApplicationRecord
   belongs_to :created_by, class_name: 'User', foreign_key: 'created_by_id'
   belongs_to :approved_by, class_name: 'User', foreign_key: 'approved_by_id', optional: true
@@ -34,7 +36,8 @@ class Lot < ApplicationRecord
   end
 
   def approved_by_cant_be_set_if_the_lot_has_no_items
-    return if approved_by_id.present? && items.any?
+    return unless approved_by_id.present?
+    return if items.present?
 
     errors.add(:approved_by_id, 'não pode ser definido em um lote sem itens')
   end

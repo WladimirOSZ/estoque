@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 include ActiveSupport::Testing::TimeHelpers
 
@@ -62,8 +64,8 @@ describe 'Administrador cadastra items de um lote cancelado em outro lote' do
     admin_2 = User.create!(name: 'Caio Willwohl', email: 'admin2@leilaodogalpao.com.br', password: 'password',
                            sex: 1, role: :admin, cpf: '621.830.060-99')
 
-    user_1 = User.create!(name: 'Joana Dark', email: 'user@user.com', password: 'password',
-                          sex: 2, role: :user, cpf: '810.460.860-65')
+    User.create!(name: 'Joana Dark', email: 'user@user.com', password: 'password',
+                 sex: 2, role: :user, cpf: '810.460.860-65')
 
     first_lot = Lot.new(code: 'ABC123', start_date: '2023-05-01 15:30:00',
                         minimum_value: 1000, minimum_difference: 100,

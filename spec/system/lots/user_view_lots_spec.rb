@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'Usuário visualiza lotes' do
@@ -23,8 +25,8 @@ describe 'Usuário visualiza lotes' do
 
     login_as(user_1)
 
-    admin_1 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-                           sex: 1, role: :admin, cpf: '764.424.940-04')
+    User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
+                 sex: 1, role: :admin, cpf: '764.424.940-04')
 
     Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.days.from_now,
                 minimum_value: 1000, minimum_difference: 100,
@@ -46,11 +48,11 @@ describe 'Usuário visualiza lotes' do
 
     login_as(user_1)
 
-    admin_1 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-                           sex: 1, role: :admin, cpf: '764.424.940-04')
+    User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
+                 sex: 1, role: :admin, cpf: '764.424.940-04')
 
-    admin_2 = User.create!(name: 'Caio Willwohl', email: 'admin2@leilaodogalpao.com.br', password: 'password',
-                           sex: 1, role: :admin, cpf: '621.830.060-99')
+    User.create!(name: 'Caio Willwohl', email: 'admin2@leilaodogalpao.com.br', password: 'password',
+                 sex: 1, role: :admin, cpf: '621.830.060-99')
 
     Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.days.from_now,
                 minimum_value: 1000, minimum_difference: 100,

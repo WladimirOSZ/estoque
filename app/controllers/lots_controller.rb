@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LotsController < ApplicationController
   before_action :authenticate_admin!, only: %i[new create edit update waiting_approval update_approval]
   before_action :authenticate_user!, only: [:won_lots]
@@ -44,17 +46,27 @@ class LotsController < ApplicationController
     @lot = Lot.find(params[:id])
     return redirect_to @lot, alert: 'Não é possível editar um lote aprovado' if @lot.approved_by_id.present?
 
-    @lot.approved_by = current_user
     modified_params = update_lot_params
+    approved = modified_params.delete(:approved)
 
-    modified_params[:approved_by_id] = modified_params[:approved_by_id] == '1' ? current_user.id : nil
+    Lot.transaction do
+      if @lot.update(modified_params)
 
-    if @lot.update(modified_params)
-      redirect_to @lot, notice: 'Lote atualizado com sucesso!'
-    else
-      @items = Item.avaliable
-      flash.now[:alert] = 'Não foi possível atualizar o lote'
-      render 'edit'
+        @lot.approved_by = current_user if approved == '1' 
+        if @lot.save
+          redirect_to @lot, notice: 'Lote atualizado com sucesso!'
+        else
+          @items = Item.avaliable
+          flash.now[:alert] = 'Não foi possível atualizar o lote'
+          render 'edit'
+          raise ActiveRecord::Rollback
+        end
+      else
+        @items = Item.avaliable
+        flash.now[:alert] = 'Não foi possível atualizar o lote'
+        render 'edit'
+        raise ActiveRecord::Rollback
+      end
     end
   end
 
@@ -65,8 +77,8 @@ class LotsController < ApplicationController
   end
 
   def update_approval
+    
     @lot = Lot.find(params[:id])
-
     @lot.status = params[:canceled] == 'true' ? :canceled : :succeeded
 
     if @lot.valid?
@@ -99,7 +111,7 @@ class LotsController < ApplicationController
   end
 
   def update_lot_params
-    params.require(:lot).permit(:approved_by_id, :start_date, :end_date, :minimum_value, :minimum_difference,
+    params.require(:lot).permit(:approved, :start_date, :end_date, :minimum_value, :minimum_difference,
                                 item_ids: [])
   end
 end

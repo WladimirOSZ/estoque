@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'Usuário cadastra categorias' do
@@ -29,8 +31,8 @@ describe 'Usuário cadastra categorias' do
 
   context 'é administrador' do
     it 'E cadastra uma categoria com campos validos' do
-      user = User.create!(name: 'Wladimir Oliveira', email: 'user@gmail.com', password: 'password',
-                          sex: 1, role: :admin, cpf: '065.625.380-09')
+      User.create!(name: 'Wladimir Oliveira', email: 'user@gmail.com', password: 'password',
+                   sex: 1, role: :admin, cpf: '065.625.380-09')
       login_as(User.last)
 
       visit root_path

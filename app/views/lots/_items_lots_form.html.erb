@@ -4,8 +4,8 @@
 <%= form_with model: @lot do |f| %>
   <div id="form-top">
     <% if @lot.approved_by_id.nil? %>
-      <%= f.check_box :approved_by_id, class: 'btn-check' %>
-      <%= f.label :approved_by_id, "Aprovar", class: 'btn btn-outline-success' %>
+      <%= f.check_box :approved, class: 'btn-check' %>
+      <%= f.label :approved, "Aprovar", class: 'btn btn-outline-success' %>
     <% else %>
       <a href="#" class="btn btn-success"> Aprovado por: <%= @lot.approved_by.name  %></a>
     <% end %>

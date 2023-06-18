@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
@@ -15,11 +17,11 @@ first_admin = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.
 second_admin = User.create!(name: 'João Silva', email: 'joao_cc@leilaodogalpao.com.br', password: 'password',
                             sex: 1, role: :admin, cpf: '065.625.380-09')
 
-first_user = User.create!(name: 'José Silva', email: 'user@gmail.com', password: 'password',
-                          sex: 1, role: :user, cpf: '272.428.220-50')
+User.create!(name: 'José Silva', email: 'user@gmail.com', password: 'password',
+             sex: 1, role: :user, cpf: '272.428.220-50')
 
-second_user = first_user = User.create!(name: 'José Silva', email: 'user_2@gmail.com', password: 'password',
-                                        sex: 1, role: :user, cpf: '259.857.290-44')
+second_user = User.create!(name: 'José Silva', email: 'user_2@gmail.com', password: 'password',
+                           sex: 1, role: :user, cpf: '259.857.290-44')
 
 # categorySeeder
 
@@ -38,9 +40,9 @@ second_lot = Lot.create!(code: 'ABC111', start_date: '2021-05-01 10:15:00', end_
                          minimum_value: 200, minimum_difference: 10,
                          created_by: second_admin, approved_by: first_admin)
 
-third_lot = Lot.create!(code: 'ABC999', start_date: 1.day.from_now, end_date: 5.days.from_now,
-                        minimum_value: 300, minimum_difference: 50,
-                        created_by: second_admin)
+Lot.create!(code: 'ABC999', start_date: 1.day.from_now, end_date: 5.days.from_now,
+            minimum_value: 300, minimum_difference: 50,
+            created_by: second_admin)
 
 fourth_lot = Lot.create!(code: 'ZAZ123', start_date: '2021-05-01 10:15:00', end_date: 50.seconds.from_now,
                          minimum_value: 100, minimum_difference: 10,

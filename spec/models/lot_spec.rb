@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Lot, type: :model do
@@ -110,8 +112,8 @@ RSpec.describe Lot, type: :model do
     end
 
     it 'is invalid when created_by is empty' do
-      admin_1 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-                             sex: 1, role: :admin, cpf: '764.424.940-04')
+      User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
+                   sex: 1, role: :admin, cpf: '764.424.940-04')
 
       admin_2 = User.create!(name: 'Caio Willwohl', email: 'admin2@leilaodogalpao.com.br', password: 'password',
                              sex: 1, role: :admin, cpf: '621.830.060-99')
@@ -157,16 +159,6 @@ RSpec.describe Lot, type: :model do
 
     expect(result).to eq(false)
   end
-
-  # validates :minimum_value, numericality: { greater_than: 99 }
-  # validates :minimum_difference, numericality: { greater_than: 9 }
-
-  # validate :end_date_cannot_be_in_the_past, if: :end_date_changed?
-  # validate :code_needs_three_letters_and_six_characters
-  # validate :created_by_needs_to_be_admin
-  # validate :approved_by_needs_to_be_admin
-  # validate :approved_by_cant_be_set_if_the_lot_has_no_items, on: :update
-  # validate :created_by_cant_be_the_same_as_approved_by
 
   it 'is invalid when minimum_value is less than 100' do
     lot = Lot.new(minimum_value: 90)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'Usuário visualiza itens' do
@@ -96,10 +98,10 @@ describe 'Usuário visualiza itens' do
                           sex: 1, role: :user, cpf: '065.625.380-09')
     login_as(user_1)
 
-    user_admin_1 = User.create!(name: 'Caio Willwohl', email: 'admin2@leilaodogalpao.com.br', password: 'password',
-                                sex: 1, role: :admin, cpf: '621.830.060-99')
-    user_admin_2 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-                                sex: 1, role: :admin, cpf: '259.857.290-44')
+    User.create!(name: 'Caio Willwohl', email: 'admin2@leilaodogalpao.com.br', password: 'password',
+                 sex: 1, role: :admin, cpf: '621.830.060-99')
+    User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
+                 sex: 1, role: :admin, cpf: '259.857.290-44')
 
     Category.create!(name: 'Celulares')
     Category.create!(name: 'Cozinha')
@@ -140,10 +142,10 @@ describe 'Usuário visualiza itens' do
                           sex: 1, role: :user, cpf: '065.625.380-09')
     login_as(user_1)
 
-    user_admin_1 = User.create!(name: 'Caio Willwohl', email: 'admin2@leilaodogalpao.com.br', password: 'password',
-                                sex: 1, role: :admin, cpf: '621.830.060-99')
-    user_admin_2 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-                                sex: 1, role: :admin, cpf: '259.857.290-44')
+    User.create!(name: 'Caio Willwohl', email: 'admin2@leilaodogalpao.com.br', password: 'password',
+                 sex: 1, role: :admin, cpf: '621.830.060-99')
+    User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
+                 sex: 1, role: :admin, cpf: '259.857.290-44')
 
     Category.create!(name: 'Celulares')
     Category.create!(name: 'Cozinha')
