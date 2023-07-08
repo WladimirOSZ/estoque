@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 include ActiveSupport::Testing::TimeHelpers
 
@@ -36,10 +34,10 @@ describe 'Administrador a seção de lotes finalizados' do
                          created_by_id: admin_1.id, approved_by_id: admin_2.id)
 
     travel_to Time.zone.local(2023, 0o5, 18, 0o1, 15, 0o0) do
-      first_lot.end_date = 1.seconds.from_now
+      first_lot.end_date = 1.second.from_now
       first_lot.save!
 
-      second_lot.end_date = 1.seconds.from_now
+      second_lot.end_date = 1.second.from_now
       second_lot.save!
     end
 
@@ -70,10 +68,10 @@ describe 'Administrador a seção de lotes finalizados' do
                          created_by_id: admin_1.id, approved_by_id: admin_2.id)
 
     travel_to Time.zone.local(2023, 0o5, 18, 0o1, 15, 0o0) do
-      first_lot.end_date = 1.seconds.from_now
+      first_lot.end_date = 1.second.from_now
       first_lot.save!
 
-      second_lot.end_date = 1.seconds.from_now
+      second_lot.end_date = 1.second.from_now
       second_lot.save!
     end
 
@@ -134,7 +132,7 @@ describe 'Administrador a seção de lotes finalizados' do
       first_lot.save!
       Bid.create!(lot_id: first_lot.id, user_id: 1, value: 2000)
 
-      second_lot.end_date = 1.seconds.from_now
+      second_lot.end_date = 1.second.from_now
       second_lot.save!
     end
 

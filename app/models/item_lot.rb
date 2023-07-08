@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ItemLot < ApplicationRecord
   belongs_to :lot
   belongs_to :item

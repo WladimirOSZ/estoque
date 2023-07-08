@@ -1147,16 +1147,6 @@
           1,
           null,
           null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
           1,
           1,
           null,
@@ -3184,8 +3174,6 @@
       },
       "/home/wladimirosz/Desktop/langs/rails/codesaga/estoque-app/spec/system/users/user_sign_in_spec.rb": {
         "lines": [
-          null,
-          null,
           1,
           null,
           1,
@@ -3482,6 +3470,6 @@
         ]
       }
     },
-    "timestamp": 1687107171
+    "timestamp": 1688829824
   }
 }

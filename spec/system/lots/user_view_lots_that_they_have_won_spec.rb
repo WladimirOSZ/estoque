@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
 describe 'Usuário visualiza leilão que ganhou' do

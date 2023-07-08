@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 include ActiveSupport::Testing::TimeHelpers
 
@@ -31,7 +29,7 @@ describe 'Usuário dá um lance' do
     ItemCategory.create!(item_id: first_item.id, category_id: 2)
     ItemCategory.create!(item_id: first_item.id, category_id: 3)
 
-    lot = Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.days.from_now,
+    lot = Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.day.from_now,
                       minimum_value: 1000, minimum_difference: 100,
                       created_by_id: admin_1.id, approved_by_id: admin_2.id)
 
@@ -79,7 +77,7 @@ describe 'Usuário dá um lance' do
     ItemCategory.create!(item_id: first_item.id, category_id: 2)
     ItemCategory.create!(item_id: first_item.id, category_id: 3)
 
-    lot = Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.days.from_now,
+    lot = Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.day.from_now,
                       minimum_value: 1000, minimum_difference: 100,
                       created_by_id: admin_1.id, approved_by_id: admin_2.id)
 
@@ -125,7 +123,7 @@ describe 'Usuário dá um lance' do
     ItemCategory.create!(item_id: first_item.id, category_id: 2)
     ItemCategory.create!(item_id: first_item.id, category_id: 3)
 
-    lot = Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.days.from_now,
+    lot = Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.day.from_now,
                       minimum_value: 1000, minimum_difference: 100,
                       created_by_id: admin_1.id, approved_by_id: admin_2.id)
 
@@ -178,7 +176,7 @@ describe 'Usuário dá um lance' do
     ItemCategory.create!(item_id: first_item.id, category_id: 2)
     ItemCategory.create!(item_id: first_item.id, category_id: 3)
 
-    lot = Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.days.from_now,
+    lot = Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.day.from_now,
                       minimum_value: 1000, minimum_difference: 100,
                       created_by_id: admin_1.id, approved_by_id: admin_2.id)
 
@@ -230,7 +228,7 @@ describe 'Usuário dá um lance' do
     ItemCategory.create!(item_id: first_item.id, category_id: 2)
     ItemCategory.create!(item_id: first_item.id, category_id: 3)
 
-    lot = Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.days.from_now,
+    lot = Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.day.from_now,
                       minimum_value: 1000, minimum_difference: 100,
                       created_by_id: admin_1.id, approved_by_id: admin_2.id)
 
@@ -275,7 +273,7 @@ describe 'Usuário dá um lance' do
     ItemCategory.create!(item_id: first_item.id, category_id: 2)
     ItemCategory.create!(item_id: first_item.id, category_id: 3)
 
-    lot = Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.days.from_now,
+    lot = Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.day.from_now,
                       minimum_value: 1000, minimum_difference: 100,
                       created_by_id: admin_1.id, approved_by_id: admin_2.id)
 

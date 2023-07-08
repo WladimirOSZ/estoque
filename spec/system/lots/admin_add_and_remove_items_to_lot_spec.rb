@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
 describe 'Administrador altera items do lote' do
@@ -12,7 +10,7 @@ describe 'Administrador altera items do lote' do
     User.create!(name: 'Caio Willwohl', email: 'admin2@leilaodogalpao.com.br', password: 'password',
                  sex: 1, role: :admin, cpf: '621.830.060-99')
 
-    Lot.create!(code: 'ABC123', start_date: 1.days.from_now, end_date: 2.days.from_now,
+    Lot.create!(code: 'ABC123', start_date: 1.day.from_now, end_date: 2.days.from_now,
                 minimum_value: 1000, minimum_difference: 100, created_by_id: 2)
 
     image = fixture_file_upload(Rails.root.join('spec/support/images/iphonexs.png'), 'image/png')
@@ -57,7 +55,7 @@ describe 'Administrador altera items do lote' do
     User.create!(name: 'Caio Willwohl', email: 'admin2@leilaodogalpao.com.br', password: 'password',
                  sex: 1, role: :admin, cpf: '621.830.060-99')
 
-    Lot.create!(code: 'ABC123', start_date: 1.days.from_now, end_date: 2.days.from_now,
+    Lot.create!(code: 'ABC123', start_date: 1.day.from_now, end_date: 2.days.from_now,
                 minimum_value: 1000, minimum_difference: 100,
                 created_by_id: 2)
 

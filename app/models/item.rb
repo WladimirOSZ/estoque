@@ -1,11 +1,9 @@
-# frozen_string_literal: true
-
 class Item < ApplicationRecord
   has_many :item_categories
   has_many :categories, through: :item_categories
   has_many :item_lot
   has_many :lots, through: :item_lot
-  belongs_to :user, class_name: 'User', foreign_key: 'user_id'
+  belongs_to :user, class_name: 'User'
 
   has_one_attached :photo
 

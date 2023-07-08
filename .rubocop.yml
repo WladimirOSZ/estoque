@@ -44,4 +44,3 @@ Lint/EmptyBlock:
 # Exemplo: class Api::V1::ApiController < ActionController::API
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
-

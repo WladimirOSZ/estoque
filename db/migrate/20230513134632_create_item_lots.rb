@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateItemLots < ActiveRecord::Migration[7.0]
   def change
     create_table :item_lots do |t|

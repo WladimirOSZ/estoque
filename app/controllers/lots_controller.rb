@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class LotsController < ApplicationController
   before_action :authenticate_admin!, only: %i[new create edit update waiting_approval update_approval]
   before_action :authenticate_user!, only: [:won_lots]
@@ -15,8 +13,21 @@ class LotsController < ApplicationController
     @users = User.all
   end
 
+  def show
+    @lot = Lot.find(params[:id])
+    @items = Item.all
+    @bid = Bid.new
+  end
+
   def new
     @lot = Lot.new
+  end
+
+  def edit
+    @lot = Lot.find(params[:id])
+    return redirect_to @lot, alert: 'Não é possível editar um lote aprovado' if @lot.approved_by_id.present?
+
+    @items = Item.avaliable
   end
 
   def create
@@ -29,19 +40,6 @@ class LotsController < ApplicationController
     end
   end
 
-  def show
-    @lot = Lot.find(params[:id])
-    @items = Item.all
-    @bid = Bid.new
-  end
-
-  def edit
-    @lot = Lot.find(params[:id])
-    return redirect_to @lot, alert: 'Não é possível editar um lote aprovado' if @lot.approved_by_id.present?
-
-    @items = Item.avaliable
-  end
-
   def update
     @lot = Lot.find(params[:id])
     return redirect_to @lot, alert: 'Não é possível editar um lote aprovado' if @lot.approved_by_id.present?
@@ -52,7 +50,7 @@ class LotsController < ApplicationController
     Lot.transaction do
       if @lot.update(modified_params)
 
-        @lot.approved_by = current_user if approved == '1' 
+        @lot.approved_by = current_user if approved == '1'
         if @lot.save
           redirect_to @lot, notice: 'Lote atualizado com sucesso!'
         else
@@ -77,7 +75,6 @@ class LotsController < ApplicationController
   end
 
   def update_approval
-    
     @lot = Lot.find(params[:id])
     @lot.status = params[:canceled] == 'true' ? :canceled : :succeeded
 

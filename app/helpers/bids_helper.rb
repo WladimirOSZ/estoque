@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module BidsHelper
   def higghest_bid(lot)
     lot.bids.where(lot_id: lot.id).last&.value

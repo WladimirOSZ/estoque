@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddCanceledStatusToItem < ActiveRecord::Migration[7.0]
   def change
     add_column :item_lots, :canceled, :boolean, default: false

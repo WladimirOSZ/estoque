@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
 RSpec.describe Lot, type: :model do
@@ -143,14 +141,14 @@ RSpec.describe Lot, type: :model do
 
     Lot.create!(
       code: 'ABC123',
-      start_date: '2021-05-01 10:15:00', end_date: 1.days.from_now,
+      start_date: '2021-05-01 10:15:00', end_date: 1.day.from_now,
       minimum_value: 100, minimum_difference: 10,
       created_by: admin_1, approved_by: admin_2
     )
 
     lot2 = Lot.new(
       code: 'ABC123',
-      start_date: '2021-05-01 10:15:00', end_date: 1.days.from_now,
+      start_date: '2021-05-01 10:15:00', end_date: 1.day.from_now,
       minimum_value: 100, minimum_difference: 10,
       created_by: admin_1, approved_by: admin_2
     )
@@ -194,7 +192,7 @@ RSpec.describe Lot, type: :model do
     admin = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
                          sex: 1, role: :admin, cpf: '764.424.940-04')
 
-    lot = Lot.create!(code: 'ABC123', start_date: 1.days.from_now, end_date: 2.days.from_now,
+    lot = Lot.create!(code: 'ABC123', start_date: 1.day.from_now, end_date: 2.days.from_now,
                       minimum_value: 1000, minimum_difference: 100, created_by_id: 1)
     lot.update(approved_by: admin)
 

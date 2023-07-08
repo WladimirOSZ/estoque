@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
 describe 'Usuário visualiza itens' do
@@ -117,7 +115,7 @@ describe 'Usuário visualiza itens' do
     ItemCategory.create!(item_id: first_item.id, category_id: 2)
     ItemCategory.create!(item_id: first_item.id, category_id: 3)
 
-    Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.days.from_now,
+    Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.day.from_now,
                 minimum_value: 1000, minimum_difference: 100,
                 created_by_id: 2)
 
@@ -161,7 +159,7 @@ describe 'Usuário visualiza itens' do
     ItemCategory.create!(item_id: first_item.id, category_id: 2)
     ItemCategory.create!(item_id: first_item.id, category_id: 3)
 
-    Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.days.from_now,
+    Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.day.from_now,
                 minimum_value: 1000, minimum_difference: 100,
                 created_by_id: 2, approved_by_id: 3)
 

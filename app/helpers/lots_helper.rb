@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module LotsHelper
   def is_open(lot)
     Time.now.between?(lot.start_date, lot.end_date)
