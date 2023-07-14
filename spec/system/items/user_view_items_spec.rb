@@ -11,8 +11,7 @@ describe 'Usuário visualiza itens' do
   end
 
   it 'E não vê botão de cadastrar item' do
-    User.create!(name: 'Wladimir Oliveira', email: 'user@gmail.com', password: 'password',
-                 sex: 1, role: :user, cpf: '065.625.380-09')
+    create(:user)
     login_as(User.last)
     visit root_path
     click_on 'Itens'
@@ -22,8 +21,7 @@ describe 'Usuário visualiza itens' do
 
   it 'E vê todos os itens cadastrados' do
     # Arrange
-    User.create!(name: 'Wladimir Oliveira', email: 'user@gmail.com', password: 'password',
-                 sex: 1, role: :user, cpf: '065.625.380-09')
+    create(:user)
     login_as(User.last)
 
     image = fixture_file_upload(Rails.root.join('spec/support/images/iphonexs.png'), 'image/png')
@@ -52,8 +50,7 @@ describe 'Usuário visualiza itens' do
 
   it 'E os itens tem a descrição encurtada' do
     # Arrange
-    User.create!(name: 'Wladimir Oliveira', email: 'user@gmail.com', password: 'password',
-                 sex: 1, role: :user, cpf: '065.625.380-09')
+    create(:user)
     login_as(User.last)
 
     image = fixture_file_upload(Rails.root.join('spec/support/images/iphonexs.png'), 'image/png')
@@ -72,20 +69,17 @@ describe 'Usuário visualiza itens' do
   end
 
   it 'E vê todos os items de um lote' do
-    user_1 = User.create!(name: 'Wladimir Oliveira', email: 'user@gmail.com', password: 'password',
-                          sex: 1, role: :user, cpf: '065.625.380-09')
-    login_as(user_1)
+    user1 = create(:user)
+    login_as(user1)
 
-    User.create!(name: 'Caio Willwohl', email: 'admin2@leilaodogalpao.com.br', password: 'password',
-                 sex: 1, role: :admin, cpf: '621.830.060-99')
-    User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-                 sex: 1, role: :admin, cpf: '259.857.290-44')
+    create(:user, :admin)
+    create(:user, :second_admin)
 
     Category.create!(name: 'Celulares')
     Category.create!(name: 'Cozinha')
     Category.create!(name: 'Esporte')
 
-    image = fixture_file_upload(Rails.root.join('app', 'assets', 'images', 'caneca-botafogo.jpg'), 'image/jpeg')
+    image = fixture_file_upload(Rails.root.join('app/assets/images/caneca-botafogo.jpg'), 'image/jpeg')
     allow(SecureRandom).to receive(:alphanumeric).and_return('ABCDE12345')
     item_caneca = Item.create!(name: 'Caneca Botafogo Cerâmica',
                                description: 'Mostre o seu amor pelo Botafogo de Futebol e Regatas com a nossa caneca personalizada. Feita de cerâmica durável, a caneca apresenta o emblemático logotipo em preto e branco do Botafogo. Com capacidade para 350ml, é perfeita para a sua bebida preferida. Comece o dia em grande estilo e demonstre a sua paixão pelo Botafogo com esta caneca incrível.',

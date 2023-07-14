@@ -18,7 +18,7 @@ second_admin = User.create!(name: 'João Silva', email: 'joao_cc@leilaodogalpao.
 User.create!(name: 'José Silva', email: 'user@gmail.com', password: 'password',
              sex: 1, role: :user, cpf: '272.428.220-50')
 
-second_user = User.create!(name: 'José Silva', email: 'user_2@gmail.com', password: 'password',
+second_user = User.create!(name: 'José Silva', email: 'user2@gmail.com', password: 'password',
                            sex: 1, role: :user, cpf: '259.857.290-44')
 
 # categorySeeder
@@ -53,21 +53,21 @@ fifith_lot = Lot.create!(code: 'ZZZ111', start_date: '2021-05-01 10:15:00', end_
 # itemSeeder
 
 # Carregando imagens
-caneca_botafogo_image = { io: File.open(Rails.root.join('db/seeds_images/caneca-botafogo.jpg')),
+caneca_botafogo_image = { io: Rails.root.join('db/seeds_images/caneca-botafogo.jpg').open,
                           filename: 'caneca-botafogo.jpg', content_type: 'imagejpeg' }
-caneca_vasco_image = { io: File.open(Rails.root.join('db/seeds_images/caneca-vasco.png')),
+caneca_vasco_image = { io: Rails.root.join('db/seeds_images/caneca-vasco.png').open,
                        filename: 'caneca-vasco.png', content_type: 'imagejpeg' }
-iphone_image = { io: File.open(Rails.root.join('db/seeds_images/iphonexs.png')), filename: 'iphonexs.png',
+iphone_image = { io: Rails.root.join('db/seeds_images/iphonexs.png').open, filename: 'iphonexs.png',
                  content_type: 'imagejpeg' }
-s20_image = { io: File.open(Rails.root.join('db/seeds_images/s20.jpg')), filename: 's20.jpg',
+s20_image = { io: Rails.root.join('db/seeds_images/s20.jpg').open, filename: 's20.jpg',
               content_type: 'imagejpeg' }
-tvsamsung_image = { io: File.open(Rails.root.join('db/seeds_images/tvsamsung.jpg')), filename: 'tvsamsung.jpg',
+tvsamsung_image = { io: Rails.root.join('db/seeds_images/tvsamsung.jpg').open, filename: 'tvsamsung.jpg',
                     content_type: 'imagejpeg' }
-motoyamaha_image = { io: File.open(Rails.root.join('db/seeds_images/moto-leilao.png')), filename: 'moto-leilao.png',
+motoyamaha_image = { io: Rails.root.join('db/seeds_images/moto-leilao.png').open, filename: 'moto-leilao.png',
                      content_type: 'image/png' }
-gol_gw = { io: File.open(Rails.root.join('db/seeds_images/gol-gts.jpg')), filename: 'gol-gts.jpg',
+gol_gw = { io: Rails.root.join('db/seeds_images/gol-gts.jpg').open, filename: 'gol-gts.jpg',
            content_type: 'imagejpeg' }
-gol_gw2 = { io: File.open(Rails.root.join('db/seeds_images/gol-gts.jpg')), filename: 'gol-gts.jpg',
+gol_gw2 = { io: Rails.root.join('db/seeds_images/gol-gts.jpg').open, filename: 'gol-gts.jpg',
             content_type: 'imagejpeg' }
 
 # Criando itens

@@ -3,39 +3,31 @@ include ActiveSupport::Testing::TimeHelpers
 
 describe 'Usuário dá um lance' do
   it 'E vê o maior lance' do
-    user_1 = User.create!(name: 'Wladimir Oliveira', email: 'user@gmail.com', password: 'password',
-                          sex: 1, role: :user, cpf: '065.625.380-09')
-    login_as(user_1)
+    user1 = create(:user)
+    login_as(user1)
 
-    user_2 = User.create!(name: 'Joãozinho da Silva', email: 'segundouser@gmail.com', password: 'password',
-                          sex: 1, role: :user, cpf: '728.773.530-01')
-
-    admin_1 = User.create!(name: 'Caio Willwohl', email: 'admin2@leilaodogalpao.com.br', password: 'password',
-                           sex: 1, role: :admin, cpf: '621.830.060-99')
-    admin_2 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-                           sex: 1, role: :admin, cpf: '259.857.290-44')
+    user2 = create(:user, :second_user)
+    admin1 = create(:user, :admin)
+    admin2 = create(:user, :second_admin)
 
     Category.create!(name: 'Celulares')
     Category.create!(name: 'Cozinha')
     Category.create!(name: 'Esporte')
 
-    image = fixture_file_upload(Rails.root.join('app', 'assets', 'images', 'caneca-botafogo.jpg'), 'image/jpeg')
+    fixture_file_upload(Rails.root.join('app/assets/images/caneca-botafogo.jpg'), 'image/jpeg')
     allow(SecureRandom).to receive(:alphanumeric).and_return('ABCDE12345')
-    first_item = Item.create!(name: 'Caneca Botafogo Cerâmica',
-                              description: 'Mostre o seu amor pelo Botafogo de Futebol e Regatas com a nossa caneca personalizada. Feita de cerâmica durável, a caneca apresenta o emblemático logotipo em preto e branco do Botafogo. Com capacidade para 350ml, é perfeita para a sua bebida preferida. Comece o dia em grande estilo e demonstre a sua paixão pelo Botafogo com esta caneca incrível.',
-                              photo: image,
-                              weight: 300, width: 10, height: 10, depth: 10, user_id: admin_1.id)
+    first_item = create(:item, user: admin1)
 
     ItemCategory.create!(item_id: first_item.id, category_id: 2)
     ItemCategory.create!(item_id: first_item.id, category_id: 3)
 
     lot = Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.day.from_now,
                       minimum_value: 1000, minimum_difference: 100,
-                      created_by_id: admin_1.id, approved_by_id: admin_2.id)
+                      created_by_id: admin1.id, approved_by_id: admin2.id)
 
     ItemLot.create!(item_id: first_item.id, lot_id: lot.id)
 
-    Bid.create!(value: 1001, user_id: user_2.id, lot_id: lot.id)
+    Bid.create!(value: 1001, user_id: user2.id, lot_id: lot.id)
 
     visit root_path
     within('nav') do
@@ -54,32 +46,26 @@ describe 'Usuário dá um lance' do
   end
 
   it 'E não há lances' do
-    user_1 = User.create!(name: 'Wladimir Oliveira', email: 'user@gmail.com', password: 'password',
-                          sex: 1, role: :user, cpf: '065.625.380-09')
-    login_as(user_1)
+    user1 = create(:user)
+    login_as(user1)
 
-    admin_1 = User.create!(name: 'Caio Willwohl', email: 'admin2@leilaodogalpao.com.br', password: 'password',
-                           sex: 1, role: :admin, cpf: '621.830.060-99')
-    admin_2 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-                           sex: 1, role: :admin, cpf: '259.857.290-44')
+    admin1 = create(:user, :admin)
+    admin2 = create(:user, :second_admin)
 
     Category.create!(name: 'Celulares')
     Category.create!(name: 'Cozinha')
     Category.create!(name: 'Esporte')
 
-    image = fixture_file_upload(Rails.root.join('app', 'assets', 'images', 'caneca-botafogo.jpg'), 'image/jpeg')
+    fixture_file_upload(Rails.root.join('app/assets/images/caneca-botafogo.jpg'), 'image/jpeg')
     allow(SecureRandom).to receive(:alphanumeric).and_return('ABCDE12345')
-    first_item = Item.create!(name: 'Caneca Botafogo Cerâmica',
-                              description: 'Mostre o seu amor pelo Botafogo de Futebol e Regatas com a nossa caneca personalizada. Feita de cerâmica durável, a caneca apresenta o emblemático logotipo em preto e branco do Botafogo. Com capacidade para 350ml, é perfeita para a sua bebida preferida. Comece o dia em grande estilo e demonstre a sua paixão pelo Botafogo com esta caneca incrível.',
-                              photo: image,
-                              weight: 300, width: 10, height: 10, depth: 10, user_id: admin_2.id)
+    first_item = create(:item, user: admin1)
 
     ItemCategory.create!(item_id: first_item.id, category_id: 2)
     ItemCategory.create!(item_id: first_item.id, category_id: 3)
 
     lot = Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.day.from_now,
                       minimum_value: 1000, minimum_difference: 100,
-                      created_by_id: admin_1.id, approved_by_id: admin_2.id)
+                      created_by_id: admin1.id, approved_by_id: admin2.id)
 
     ItemLot.create!(item_id: first_item.id, lot_id: lot.id)
 
@@ -100,32 +86,26 @@ describe 'Usuário dá um lance' do
   end
 
   it 'E faz um lance menor do que o valor mínimo do lote' do
-    user_1 = User.create!(name: 'Wladimir Oliveira', email: 'user@gmail.com', password: 'password',
-                          sex: 1, role: :user, cpf: '065.625.380-09')
-    login_as(user_1)
+    user1 = create(:user)
+    login_as(user1)
 
-    admin_1 = User.create!(name: 'Caio Willwohl', email: 'admin2@leilaodogalpao.com.br', password: 'password',
-                           sex: 1, role: :admin, cpf: '621.830.060-99')
-    admin_2 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-                           sex: 1, role: :admin, cpf: '259.857.290-44')
+    admin1 = create(:user, :admin)
+    admin2 = create(:user, :second_admin)
 
     Category.create!(name: 'Celulares')
     Category.create!(name: 'Cozinha')
     Category.create!(name: 'Esporte')
 
-    image = fixture_file_upload(Rails.root.join('app', 'assets', 'images', 'caneca-botafogo.jpg'), 'image/jpeg')
+    fixture_file_upload(Rails.root.join('app/assets/images/caneca-botafogo.jpg'), 'image/jpeg')
     allow(SecureRandom).to receive(:alphanumeric).and_return('ABCDE12345')
-    first_item = Item.create!(name: 'Caneca Botafogo Cerâmica',
-                              description: 'Mostre o seu amor pelo Botafogo de Futebol e Regatas com a nossa caneca personalizada. Feita de cerâmica durável, a caneca apresenta o emblemático logotipo em preto e branco do Botafogo. Com capacidade para 350ml, é perfeita para a sua bebida preferida. Comece o dia em grande estilo e demonstre a sua paixão pelo Botafogo com esta caneca incrível.',
-                              photo: image,
-                              weight: 300, width: 10, height: 10, depth: 10, user_id: admin_2.id)
+    first_item = create(:item, user: admin1)
 
     ItemCategory.create!(item_id: first_item.id, category_id: 2)
     ItemCategory.create!(item_id: first_item.id, category_id: 3)
 
     lot = Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.day.from_now,
                       minimum_value: 1000, minimum_difference: 100,
-                      created_by_id: admin_1.id, approved_by_id: admin_2.id)
+                      created_by_id: admin1.id, approved_by_id: admin2.id)
 
     ItemLot.create!(item_id: first_item.id, lot_id: lot.id)
 
@@ -150,39 +130,32 @@ describe 'Usuário dá um lance' do
   end
 
   it 'E faz um lance menor do que o valor do último lance mais as diferença mínima' do
-    user_1 = User.create!(name: 'Wladimir Oliveira', email: 'user@gmail.com', password: 'password',
-                          sex: 1, role: :user, cpf: '065.625.380-09')
-    login_as(user_1)
+    user1 = create(:user)
+    login_as(user1)
 
-    user_2 = User.create!(name: 'Joãozinho da Silva', email: 'segundouser@gmail.com', password: 'password',
-                          sex: 1, role: :user, cpf: '728.773.530-01')
+    user2 = create(:user, :second_user)
 
-    admin_1 = User.create!(name: 'Caio Willwohl', email: 'admin2@leilaodogalpao.com.br', password: 'password',
-                           sex: 1, role: :admin, cpf: '621.830.060-99')
-    admin_2 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-                           sex: 1, role: :admin, cpf: '259.857.290-44')
+    admin1 = create(:user, :admin)
+    admin2 = create(:user, :second_admin)
 
     Category.create!(name: 'Celulares')
     Category.create!(name: 'Cozinha')
     Category.create!(name: 'Esporte')
 
-    image = fixture_file_upload(Rails.root.join('app', 'assets', 'images', 'caneca-botafogo.jpg'), 'image/jpeg')
+    fixture_file_upload(Rails.root.join('app/assets/images/caneca-botafogo.jpg'), 'image/jpeg')
     allow(SecureRandom).to receive(:alphanumeric).and_return('ABCDE12345')
-    first_item = Item.create!(name: 'Caneca Botafogo Cerâmica',
-                              description: 'Mostre o seu amor pelo Botafogo de Futebol e Regatas com a nossa caneca personalizada. Feita de cerâmica durável, a caneca apresenta o emblemático logotipo em preto e branco do Botafogo. Com capacidade para 350ml, é perfeita para a sua bebida preferida. Comece o dia em grande estilo e demonstre a sua paixão pelo Botafogo com esta caneca incrível.',
-                              photo: image,
-                              weight: 300, width: 10, height: 10, depth: 10, user_id: admin_2.id)
+    first_item = create(:item, user: admin1)
 
     ItemCategory.create!(item_id: first_item.id, category_id: 2)
     ItemCategory.create!(item_id: first_item.id, category_id: 3)
 
     lot = Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.day.from_now,
                       minimum_value: 1000, minimum_difference: 100,
-                      created_by_id: admin_1.id, approved_by_id: admin_2.id)
+                      created_by_id: admin1.id, approved_by_id: admin2.id)
 
     ItemLot.create!(item_id: first_item.id, lot_id: lot.id)
 
-    Bid.create!(value: 1001, user_id: user_2.id, lot_id: lot.id)
+    Bid.create!(value: 1001, user_id: user2.id, lot_id: lot.id)
 
     visit root_path
     within('nav') do
@@ -205,32 +178,26 @@ describe 'Usuário dá um lance' do
   end
 
   it 'E faz um lance válido' do
-    user_1 = User.create!(name: 'Wladimir Oliveira', email: 'user@gmail.com', password: 'password',
-                          sex: 1, role: :user, cpf: '065.625.380-09')
-    login_as(user_1)
+    user1 = create(:user)
+    login_as(user1)
 
-    admin_1 = User.create!(name: 'Caio Willwohl', email: 'admin2@leilaodogalpao.com.br', password: 'password',
-                           sex: 1, role: :admin, cpf: '621.830.060-99')
-    admin_2 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-                           sex: 1, role: :admin, cpf: '259.857.290-44')
+    admin1 = create(:user, :admin)
+    admin2 = create(:user, :second_admin)
 
     Category.create!(name: 'Celulares')
     Category.create!(name: 'Cozinha')
     Category.create!(name: 'Esporte')
 
-    image = fixture_file_upload(Rails.root.join('app', 'assets', 'images', 'caneca-botafogo.jpg'), 'image/jpeg')
+    fixture_file_upload(Rails.root.join('app/assets/images/caneca-botafogo.jpg'), 'image/jpeg')
     allow(SecureRandom).to receive(:alphanumeric).and_return('ABCDE12345')
-    first_item = Item.create!(name: 'Caneca Botafogo Cerâmica',
-                              description: 'Mostre o seu amor pelo Botafogo de Futebol e Regatas com a nossa caneca personalizada. Feita de cerâmica durável, a caneca apresenta o emblemático logotipo em preto e branco do Botafogo. Com capacidade para 350ml, é perfeita para a sua bebida preferida. Comece o dia em grande estilo e demonstre a sua paixão pelo Botafogo com esta caneca incrível.',
-                              photo: image,
-                              weight: 300, width: 10, height: 10, depth: 10, user_id: admin_2.id)
+    first_item = create(:item, user: admin1)
 
     ItemCategory.create!(item_id: first_item.id, category_id: 2)
     ItemCategory.create!(item_id: first_item.id, category_id: 3)
 
     lot = Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.day.from_now,
                       minimum_value: 1000, minimum_difference: 100,
-                      created_by_id: admin_1.id, approved_by_id: admin_2.id)
+                      created_by_id: admin1.id, approved_by_id: admin2.id)
 
     ItemLot.create!(item_id: first_item.id, lot_id: lot.id)
 
@@ -250,32 +217,26 @@ describe 'Usuário dá um lance' do
   end
 
   it 'E faz um lance após o fechamento do lote' do
-    user_1 = User.create!(name: 'Wladimir Oliveira', email: 'user@gmail.com', password: 'password',
-                          sex: 1, role: :user, cpf: '065.625.380-09')
-    login_as(user_1)
+    user1 = create(:user)
+    login_as(user1)
 
-    admin_1 = User.create!(name: 'Caio Willwohl', email: 'admin2@leilaodogalpao.com.br', password: 'password',
-                           sex: 1, role: :admin, cpf: '621.830.060-99')
-    admin_2 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-                           sex: 1, role: :admin, cpf: '259.857.290-44')
+    admin1 = create(:user, :admin)
+    admin2 = create(:user, :second_admin)
 
     Category.create!(name: 'Celulares')
     Category.create!(name: 'Cozinha')
     Category.create!(name: 'Esporte')
 
-    image = fixture_file_upload(Rails.root.join('app', 'assets', 'images', 'caneca-botafogo.jpg'), 'image/jpeg')
+    fixture_file_upload(Rails.root.join('app/assets/images/caneca-botafogo.jpg'), 'image/jpeg')
     allow(SecureRandom).to receive(:alphanumeric).and_return('ABCDE12345')
-    first_item = Item.create!(name: 'Caneca Botafogo Cerâmica',
-                              description: 'Mostre o seu amor pelo Botafogo de Futebol e Regatas com a nossa caneca personalizada. Feita de cerâmica durável, a caneca apresenta o emblemático logotipo em preto e branco do Botafogo. Com capacidade para 350ml, é perfeita para a sua bebida preferida. Comece o dia em grande estilo e demonstre a sua paixão pelo Botafogo com esta caneca incrível.',
-                              photo: image,
-                              weight: 300, width: 10, height: 10, depth: 10, user_id: admin_2.id)
+    first_item = create(:item, user: admin1)
 
     ItemCategory.create!(item_id: first_item.id, category_id: 2)
     ItemCategory.create!(item_id: first_item.id, category_id: 3)
 
     lot = Lot.create!(code: 'ABC123', start_date: '2023-05-01 15:30:00', end_date: 1.day.from_now,
                       minimum_value: 1000, minimum_difference: 100,
-                      created_by_id: admin_1.id, approved_by_id: admin_2.id)
+                      created_by_id: admin1.id, approved_by_id: admin2.id)
 
     ItemLot.create!(item_id: first_item.id, lot_id: lot.id)
 

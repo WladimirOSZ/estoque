@@ -24,7 +24,7 @@ class Bid < ApplicationRecord
   end
 
   def lot_must_be_open
-    return unless lot.end_date < Time.now
+    return unless lot.end_date < Time.zone.now
 
     errors.add(:lot, 'já fechou. Não é mais possível dar lances')
   end

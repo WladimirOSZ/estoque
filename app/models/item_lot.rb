@@ -4,8 +4,6 @@ class ItemLot < ApplicationRecord
 
   enum canceled: { canceled: true, avaliable: false }
 
-  validates :item_id, :lot_id, presence: true
-
   validate :item_cant_be_in_an_active_lot
 
   def item_cant_be_in_an_active_lot

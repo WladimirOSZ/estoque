@@ -69,7 +69,7 @@ class LotsController < ApplicationController
   end
 
   def waiting_approval
-    @lots = Lot.where('end_date < ?', Time.now).where(status: :ongoing)
+    @lots = Lot.where('end_date < ?', Time.zone.now).where(status: :ongoing)
     @lots_succeded = Lot.succeeded
     @lots_canceled = Lot.canceled
   end

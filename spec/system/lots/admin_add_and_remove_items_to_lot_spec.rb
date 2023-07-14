@@ -2,13 +2,8 @@ require 'rails_helper'
 
 describe 'Administrador altera items do lote' do
   it 'Adiciona' do
-    admin_1 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-                           sex: 1, role: :admin, cpf: '764.424.940-04')
-
-    login_as(admin_1)
-
-    User.create!(name: 'Caio Willwohl', email: 'admin2@leilaodogalpao.com.br', password: 'password',
-                 sex: 1, role: :admin, cpf: '621.830.060-99')
+    admin1 = create(:user, :admin)
+    create(:user, :second_admin)
 
     Lot.create!(code: 'ABC123', start_date: 1.day.from_now, end_date: 2.days.from_now,
                 minimum_value: 1000, minimum_difference: 100, created_by_id: 2)
@@ -25,6 +20,7 @@ describe 'Administrador altera items do lote' do
                  description: 'O Samsung Galaxy S20 é um smartphone Android com características inovadoras que o tornam uma excelente opção para qualquer tipo de utilização. A tela de 6.2 polegadas coloca esse Samsung no topo de sua categoria. A resolução também é alta: 3200x1440 pixel. As funcionalidades oferecidas pelo Samsung Galaxy S20 são muitas e top de linha. Começando pelo LTE 5G que permite a transferência de dados e excelente navegação na internet.',
                  photo: image, weight: 1, width: 10, height: 10, depth: 10, user_id: User.last.id)
 
+    login_as(admin1)
     visit root_path
     within('nav') do
       click_on 'Lotes'
@@ -47,14 +43,8 @@ describe 'Administrador altera items do lote' do
   end
 
   it 'Remove' do
-    admin_1 = User.create!(name: 'Wladimir Souza', email: 'admin@leilaodogalpao.com.br', password: 'password',
-                           sex: 1, role: :admin, cpf: '764.424.940-04')
-
-    login_as(admin_1)
-
-    User.create!(name: 'Caio Willwohl', email: 'admin2@leilaodogalpao.com.br', password: 'password',
-                 sex: 1, role: :admin, cpf: '621.830.060-99')
-
+    admin1 = create(:user, :admin)
+    create(:user, :second_admin)
     Lot.create!(code: 'ABC123', start_date: 1.day.from_now, end_date: 2.days.from_now,
                 minimum_value: 1000, minimum_difference: 100,
                 created_by_id: 2)
@@ -73,6 +63,7 @@ describe 'Administrador altera items do lote' do
     ItemLot.create!(item_id: item_iphone.id, lot_id: Lot.last.id)
     ItemLot.create!(item_id: item_samsung.id, lot_id: Lot.last.id)
 
+    login_as(admin1)
     visit root_path
     within('nav') do
       click_on 'Lotes'

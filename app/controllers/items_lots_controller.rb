@@ -26,7 +26,7 @@ class ItemsLotsController < ApplicationController
   private
 
   def is_open(lot)
-    Time.now.between?(lot.start_date, lot.end_date)
+    Time.zone.now.between?(lot.start_date, lot.end_date)
   end
 
   def items_lot_params

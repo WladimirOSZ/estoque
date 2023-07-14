@@ -20,7 +20,7 @@ class Lot < ApplicationRecord
   validate :created_by_cant_be_the_same_as_approved_by
 
   def end_date_cannot_be_in_the_past
-    return unless end_date.present? && end_date < Time.now
+    return unless end_date.present? && end_date < Time.zone.now
 
     errors.add(:end_date, 'não pode estar no passado')
   end
@@ -34,7 +34,7 @@ class Lot < ApplicationRecord
   end
 
   def approved_by_cant_be_set_if_the_lot_has_no_items
-    return unless approved_by_id.present?
+    return if approved_by_id.blank?
     return if items.present?
 
     errors.add(:approved_by_id, 'não pode ser definido em um lote sem itens')
@@ -47,7 +47,7 @@ class Lot < ApplicationRecord
   end
 
   def self.unnaproved
-    Lot.where('approved_by_id IS NULL')
+    Lot.where(approved_by_id: nil)
   end
 
   def self.approved
