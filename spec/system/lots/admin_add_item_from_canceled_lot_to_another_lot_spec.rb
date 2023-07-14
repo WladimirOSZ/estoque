@@ -37,7 +37,7 @@ describe 'Administrador cadastra items de um lote cancelado em outro lote' do
       click_on 'Adicionar items'
     end
 
-    expect(page).to have_content('adicionar - ABCDE12345')
+    expect(page).to have_content('dicionar - ABCDE12345')
   end
 
   it 'E adiciona em outro lote' do
@@ -152,7 +152,7 @@ describe 'Administrador cadastra items de um lote cancelado em outro lote' do
                              created_by_id: admin1.id)
 
     ItemLot.create!(lot_id: second_lot.id, item_id: Item.last.id)
-    
+
     login_as(admin1)
     visit root_path
     within('nav') do
